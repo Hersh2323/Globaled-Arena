@@ -1,0 +1,40 @@
+// INTERRUPT SYSTEM
+"OnAbilityPhaseStart"
+{
+	"ApplyModifier"
+	{
+		"ModifierName"		"modifier_casting_datadriven"
+		"Target"			"CASTER"
+	}
+}
+
+"OnAbilityPhaseInterrupted"
+{
+	"RemoveModifier"
+	{
+		"ModifierName"		"modifier_casting_datadriven"
+		"Target"			"CASTER"
+	}
+}
+
+"OnSpellStart"
+{
+    "RemoveModifier"
+    {
+        "ModifierName"      "modifier_casting_datadriven"
+        "Target"            "CASTER"
+    }
+}
+// INTERRUPT SYSTEM
+
+
+    // INTERRUPT SYSTEM
+    "modifier_casting_datadriven"
+    {
+        "IsBuff"    "1"
+        "IsHidden"  "1"
+
+        "EffectName"        "particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_borealis.vpcf"
+        "EffectAttachType"  "attach_origin"
+    }
+    // INTERRUPT SYSTEM

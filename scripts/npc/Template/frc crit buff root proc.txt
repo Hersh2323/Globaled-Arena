@@ -1,0 +1,88 @@
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"crit_buff_duration"		"2.5"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_attacks"				"2"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"crit_buff_multiplier"			"150"
+			}
+		}
+
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_crit_stack_datadriven"
+				"Target" 		"CASTER"
+				"Duration"		"%crit_buff_duration"
+			}
+		}
+	
+		"Modifiers"
+		{
+			"modifier_crit_stack_datadriven"
+			{
+				"IsBuff"			"1"
+				//"IsHidden"			"1"
+		
+				"EffectName"		"particles/units/heroes/hero_ursa/ursa_enrage_buff.vpcf"
+				"EffectAttachType"	"attach_attack1"
+		
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/frccritbuff.lua"
+						"Function"		"CritBuffInitialize"
+						"modifier_stack"	"modifier_crit_stack_datadriven"
+					}
+	
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_crit_buff_datadriven"
+						"Target" 		"TARGET"
+					}
+				}
+	
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_crit_buff_datadriven"
+						"Target" 		"TARGET"
+					}
+				}
+	
+				"OnAttack"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/frccritbuff.lua"
+						"Function"		"CritBuffDecrement"
+						"modifier_stack"	"modifier_crit_stack_datadriven"
+					}
+				}			
+			}
+
+
+			"modifier_crit_buff_datadriven"
+			{
+				"IsHidden"		"1"
+	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%crit_buff_multiplier"
+				}
+			}
+		}
+	}

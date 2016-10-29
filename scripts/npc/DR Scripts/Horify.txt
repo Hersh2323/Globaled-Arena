@@ -1,0 +1,46 @@
+
+
+
+
+"OnDestroy"
+{
+	"ApplyModifier"
+	{
+		"ModifierName"		"modifier_horrify_dr_datadriven"
+		"Target"			"TARGET"
+	}
+}
+
+
+
+
+
+
+
+
+"RemoveModifier"
+{
+	"ModifierName"		"modifier_horrify_horrify_debuff_datadriven"
+	"Target"			"TARGET"
+}
+
+
+"modifier_horify_dr_datadriven"
+{
+	"Duration"		"15"
+	"IsDebuff"		"1"
+	"IsPurgable"	"0"
+
+	"EffectName"			"particles/items_fx/aura_assault.vpcf"
+	"EffectAttachType"		"attach_origin"
+
+	"ThinkInterval"		"0.03"
+	"OnIntervalThink"
+	{
+		"RemoveModifier"
+		{
+			"ModifierName"		"modifier_horrify_horrify_debuff_datadriven"
+			"Target"			"TARGET"
+		}
+	}
+}

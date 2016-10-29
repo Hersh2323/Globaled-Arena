@@ -1,0 +1,8 @@
+12v12a1
+{
+	material materials/overviews/12v12a1.vmat
+	pos_x -8192
+	pos_y 8192
+	scale 16.000
+}
+

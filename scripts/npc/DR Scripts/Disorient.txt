@@ -1,0 +1,74 @@
+		"modifier_disorient_dr_datadriven"
+		{
+			"Duration"		"15"
+			"IsDebuff"		"1"
+			"IsPurgable"	"0"
+
+			"EffectName"			"particles/items_fx/aura_shivas.vpcf"
+			"EffectAttachType"		"attach_origin"
+
+			"ThinkInterval"		"0.03"
+			"OnIntervalThink"
+			{
+				"RemoveModifier"
+				{
+					"ModifierName"		"modifier_sheep_disorient_debuff_datadriven"
+					"Target"			"TARGET"
+				}
+
+				"RemoveModifier"
+				{
+					"ModifierName"		"modifier_sheep_lua"
+					"Target"			"TARGET"
+				}
+
+
+
+				"RemoveModifier"
+				{
+					"ModifierName"		"modifier_light_strike_array_datadriven"
+					"Target"			"TARGET"
+				}
+			}
+		}
+
+
+
+
+
+"OnDestroy"
+{
+	"ApplyModifier"
+	{
+		"ModifierName"		"modifier_disorient_dr_datadriven"
+		"Target"		"TARGET"
+	}
+}
+
+
+
+
+
+
+
+
+
+			// DR initiation
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_sheep_disorient_debuff_datadriven"
+				"Target"			"TARGET"
+			}
+
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_sheep_lua"
+				"Target"			"TARGET"
+			}
+
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_light_strike_array_datadriven"
+				"Target"			"TARGET"
+			}
+			//

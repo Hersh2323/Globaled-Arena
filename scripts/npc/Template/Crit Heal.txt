@@ -1,0 +1,24 @@
+					"Random"
+					{
+						"Chance"			"%heal_crit_chance"
+
+						"OnSuccess"
+						{
+								"Heal"
+							{
+								"Target"        "TARGET"
+								"HealAmount"	"%heal*0.3"
+							}
+						}
+					}
+
+
+
+
+
+
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"heal_crit_chance"			"30"
+			}

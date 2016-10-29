@@ -1,0 +1,14 @@
+"AddonInfo"
+{
+	"ADDON_GAME_NAME"		"Globaled Arena"
+	"addon_game_name"		"Globaled Arena"
+
+
+  "TeamCount" "2"
+  "maps"      "arena_a3"
+  "IsPlayable"  "1"
+  "arena_a3"
+  {
+          "MaxPlayers"                    "10"
+  }
+}

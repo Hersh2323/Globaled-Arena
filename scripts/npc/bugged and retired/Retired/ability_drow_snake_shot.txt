@@ -1,0 +1,151 @@
+	"drow_snake_shot"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityTextureName"			"medusa_mystic_snake"
+		"Maxlevel"						"1"
+	
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts"
+			"particle"					"particles/units/heroes/hero_medusa/medusa_mystic_snake_cast.vpcf"
+			"particle"					"particles/units/heroes/hero_medusa/medusa_mystic_snake_impact_return_front.vpcf"
+			"particle"					"particles/units/heroes/hero_medusa/medusa_mystic_snake_projectile.vpcf"
+			"particle"					"particles/units/heroes/hero_medusa/medusa_mystic_snake_impact.vpcf"
+		}
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0.0"
+	
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"6.0"
+		"AbilityCastAnimation" 			"ACT_DOTA_ATTACK"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"425"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"projectile_speed"		"2600"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"crit_chance"			"30"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"weapon_damage"			"1.1"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"crit_damage"			"1.25"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"9.0"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"dot_tick_interval"			"3.0"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Medusa.MysticSnake.Cast"
+				"Target" 		"CASTER"
+			}
+	
+			"FireEffect"
+			{
+				"EffectName"        "particles/units/heroes/hero_medusa/medusa_mystic_snake_cast.vpcf"
+				"EffectAttachType"  "follow_origin"
+				"Target"            "CASTER"
+			}
+	
+			"TrackingProjectile"
+			{
+				"Target"           	"TARGET"
+				"EffectName"		"particles/units/heroes/hero_medusa/medusa_mystic_snake_projectile.vpcf"
+				"Dodgeable"			"1"
+				"ProvidesVision"	"0"
+				"MoveSpeed"        	"%projectile_speed"
+				"SourceAttachment"	"DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+			}
+		}
+	
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"1"
+			
+	        "ApplyModifier"
+	        {
+	        	"ModifierName"		"modifier_snake_shot_debuff_poison_dispellable_datadriven"
+	        	"Target"			"TARGET"
+	        }
+		}
+
+		"modifiers"
+		{
+
+			"modifier_snake_shot_debuff_poison_dispellable_datadriven"
+			{
+				"Duration"		"%duration"
+
+				"IsDebuff"		"1"
+				"IsPurgable"	"1"
+
+				"ThinkInterval"		"%dot_tick_interval"
+
+				"OnIntervalThink"
+				{
+			        "Random"
+			        {
+			            "Chance" "%crit_chance"
+
+			            "OnSuccess"
+			            {
+					    	"RunScript"
+					    	{
+					    		"ScriptFile"	"heroes/globaled_hero_drow_ranger/snakeshotdamage.lua"
+					    		"Function"		"snakeShotDamageCritical"
+					    	}
+			            }
+
+			            "OnFailure"
+			            {
+					    	"RunScript"
+					    	{
+					    		"ScriptFile"	"heroes/globaled_hero_drow_ranger/snakeshotdamage.lua"
+					    		"Function"		"snakeShotDamage"
+					    	}
+			            }
+			        }
+				}
+			}
+		}
+	}
