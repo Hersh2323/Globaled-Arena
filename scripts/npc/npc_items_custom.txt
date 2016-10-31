@@ -6108,6 +6108,8 @@
 		
 		"OnSpellStart"
 		{
+
+
 			"RunScript"
 			{
 				"ScriptFile"		"heroes/globaled_hero_crystal_maiden/sheep.lua"
@@ -6261,7 +6263,7 @@
 			{
 				"Duration"		"15"
 				"IsDebuff"		"1"
-				"IsPurgable"	"0"
+				"IsPurgable"	"1"
 
 				"EffectName"			"particles/items_fx/aura_shivas.vpcf"
 				"EffectAttachType"		"attach_origin"
@@ -6271,7 +6273,7 @@
 			{
 				"Duration"		"15"
 				"IsDebuff"		"1"
-				"IsPurgable"	"0"
+				"IsPurgable"	"1"
 
 				"EffectName"			"particles/items_fx/aura_shivas.vpcf"
 				"EffectAttachType"		"attach_origin"
@@ -6563,7 +6565,7 @@
 			{
 				"Duration"		"15"
 				"IsDebuff"		"1"
-				"IsPurgable"	"0"
+				"IsPurgable"	"1"
 
 				"EffectName"			"particles/items_fx/aura_assault.vpcf"
 				"EffectAttachType"		"attach_origin"
@@ -6573,7 +6575,7 @@
 			{
 				"Duration"		"15"
 				"IsDebuff"		"1"
-				"IsPurgable"	"0"
+				"IsPurgable"	"1"
 
 				"EffectName"			"particles/items_fx/aura_assault.vpcf"
 				"EffectAttachType"		"attach_origin"
@@ -8190,7 +8192,7 @@
 			{
 				"Duration"		"15"
 				"IsDebuff"		"1"
-				"IsPurgable"	"0"
+				"IsPurgable"	"1"
 
 				"EffectName"			"particles/items_fx/aura_assault.vpcf"
 				"EffectAttachType"		"attach_origin"
@@ -8200,7 +8202,7 @@
 			{
 				"Duration"		"15"
 				"IsDebuff"		"1"
-				"IsPurgable"	"0"
+				"IsPurgable"	"1"
 
 				"EffectName"			"particles/items_fx/aura_assault.vpcf"
 				"EffectAttachType"		"attach_origin"
