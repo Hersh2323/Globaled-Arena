@@ -54,13 +54,13 @@ function doomBoltDamageCritical( keys )
 			victim = target,
 			attacker = caster,
 			damage_type = DAMAGE_TYPE_MAGICAL,
-			damage = caster_combined_damage_value * caster_base_crit_damage
+			damage = caster_base_damage * caster_base_crit_damage
 		}
 		
 		ApplyDamage(damageTable)
 
 
-		local damageToPrint = math.floor( caster_combined_damage_value * caster_base_crit_damage )
+		local damageToPrint = math.floor( caster_base_damage * caster_base_crit_damage )
 		if damageToPrint > 0 then				
 			PopupNumbers(target, "crit", Vector(255, 0, 0), 2.0, damageToPrint, nil, POPUP_SYMBOL_POST_LIGHTNING)
 		else

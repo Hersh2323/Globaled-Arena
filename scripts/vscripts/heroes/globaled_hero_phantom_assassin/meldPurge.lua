@@ -40,6 +40,10 @@ function removeMagicDebuffs(keys)
 	target:RemoveModifierByName("modifier_undying_dummy_dot_debuff_datadriven")
 	target:RemoveModifierByName("modifier_fire_trap_debuff_magical_dispellable_datadriven")
 	target:RemoveModifierByName("necrolyte_harvest_season_magical_debuff_datadriven")
+	target:RemoveModifierByName("modifier_undying_infest_blood_disease_dispellable")
+	target:RemoveModifierByName("modifier_undying_chill_bones_disease_dispellable")
+	target:RemoveModifierByName("modifier_undying_chill_bones_attack_speed_debuff_disease_dispellable")
+	target:RemoveModifierByName("modifier_defiling_plague_disease_dispellable")
 
 	
 

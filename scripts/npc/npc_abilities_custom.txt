@@ -184,7 +184,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_UNRESTRICTED"
 		"AbilityTextureName"			"queenofpain_blink"
 		"MaxLevel"						"1"
 	
@@ -4169,7 +4169,7 @@
 		"MaxLevel"						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"AbilityCooldown"				"180"
+		"AbilityCooldown"				"60"
 		"AbilityManaCost"				"0"
 		"AbilityTextureName"			"beastmaster_call_of_the_wild_boar"
 		"AbilityCastPoint"				"0"
@@ -4208,13 +4208,34 @@
 
 		"OnSpellStart"
 		{
+
+			"ActOnTargets"
+			{
+			    "Target"
+			    {
+			        "Center"    "CASTER"
+			        "Radius"    "99999999"
+			        "Teams"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+			        "Types"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			    }
+			
+			    "Action"    
+			    {
+					"RunScript"
+					{
+					    "ScriptFile"    "heroes/summon.lua"
+					    "Function"      "remove_drow_buddy"
+					}
+			    }
+			}
+
 			"SpawnUnit"
 			{
-				"UnitName"	"npc_drow_buddy"
-				"SpawnRadius"	"120"
-				"Duration"	"180"
-				"Target"	"CASTER"
+				"UnitName"			"npc_drow_buddy"
+				"SpawnRadius"		"120"
+				"Target"			"CASTER"
 			}
+
 
 			"FireSound"
 			{
@@ -6086,7 +6107,7 @@
 	{
 		"BaseClass"	"ability_datadriven"
 		"MaxLevel"	"1"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDATE"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellImmunityType"			"SPELL_IMMUNITY_ALLIES_YES"
 		"AbilityCooldown"	"180"
 		"AbilityManaCost"	"0"
@@ -7542,9 +7563,8 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_AOE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilityTextureName"			"pudge_meat_hook"
 		"MaxLevel"			"1"
@@ -7560,20 +7580,22 @@
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"0.125"
+		"AbilityCastRange"				"1325"
+		"AbilityCastPoint"				""
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"5"
+		"AbilityCooldown"				"1.5"
 	
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDamage"					"0"
 	
+		"AnimationPlayBackRate"			"1.25"
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0"
+		"AOERadius"						"%hook_width"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -7582,7 +7604,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"hook_speed"			"2400"
+				"hook_speed"			"3000"
 			}
 			"02"
 			{
@@ -7592,7 +7614,7 @@
 			"03"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"hook_distance"		"1200"
+				"hook_distance"		"1325"
 			}
 			"04"
 			{
@@ -7607,7 +7629,7 @@
 			"06"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"caster_duration"	"0.3"
+				"caster_duration"	"0.6"
 			}
 			"07"
 			{
@@ -7661,7 +7683,8 @@
 				"hook_particle"			"particles/units/heroes/hero_pudge/pudge_meathook_chain.vpcf"
 				"dummy_modifier"		"modifier_meat_hook_dummy_datadriven"
 			}
-	
+			
+
 		}
 	
 		"OnProjectileHitUnit"
@@ -7728,9 +7751,12 @@
 				"IsHidden"	"1"
 				"Duration"	"%caster_duration"
 	
+				"OverrideAnimation"		"ACT_DOTA_UNDYING_SOUL_RIP"
+
+
 				"States"
 				{
-					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				//	"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
 				}
 			}
 	
@@ -7763,7 +7789,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -7789,7 +7815,9 @@
 		"precache"
 		{
 			"particle"			"particles/units/heroes/hero_doom_bringer/doom_bringer_doom.vpcf"
-			"particles"			"particles/units/heroes/hero_undying/undying_ambient.vpcf"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts"
+
+			
 			// item_undying_armor
 
 			"particle"			"particles/units/heroes/hero_abaddon/abaddon_borrowed_time.vpcf"
@@ -7831,45 +7859,79 @@
 			}
 			"03"
 			{
-				"var_type"							"FIELD_FLOAT"
-				"dot_duration"				"18"
-			}
-			"04"
-			{
-				"var_type"							"FIELD_FLOAT"
-				"weapon_damage"				"0.06"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"summon_chance_pct"		"25"
-			}
-			"06"
-			{
-				"var_type"							"FIELD_FLOAT"
-				"summon_duration"			"3"
-			}
-			"07"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"tick_interval"			"3.0"
-			}
-			"08"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"tooltip_only_movement_slow_pct"		"-15"
-			}
-			"09"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"tooltip_mana_per_attack"					"20"
-				// Not actual value, actual value in vscript/frcmana.lua
-			}
-			"10"
-			{
 				"var_type"					"FIELD_FLOAT"
 				"crit_bonus"				"125"
 			}
+
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"defiling_plague_thinker_duration"				"11"
+			}
+			"05"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"defiling_plague_thinker_tick_rate"				"0.25"
+			}
+			"06"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"defiling_plague_debuff_duration"				"12"
+			}
+			"07"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"defiling_plague_debuff_tick_rate"				"4"
+			}
+			"08"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"defiling_plague_thinker_radius"				"325"
+			}
+			"09"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"defiling_plague_chance"				"15"
+			}
+			"10"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"mana_cost"				"35"
+			}
+			"10"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"instant_strike_weapon_damage"				"25"
+			}
+			"11"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"instant_strike_weapon_damage_bonus_per_disease"				"50"
+			}
+			"12"
+			{
+				"var_type"								"FIELD_FLOAT"
+				"ability_cooldown"				"1.5"
+			}
+
+			"13"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"mana_regen_duration"				"1"
+			}
+			"14"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"mana_regen_bonus"				"13"
+			}
+			"15"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"defiling_plague_total_weapon_damage"				"35"
+			}
+
+
+
 		}
 
 		"OnOwnerSpawned"
@@ -7902,37 +7964,20 @@
 		}
 
 
-
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/damage.lua"
+			    "Function"      "ability_undying_defiling_strike"
+			}
+		}
 
 
 
 
 		"Modifiers"
 		{
-			"modifier_summon_ghoul_defender_datadriven"
-			{
-				"Passive"		"1"
-				"IsHidden"		"1"
-
-				"OnAttacked"
-				{
-					"Random"
-					{
-						"Chance"	"%summon_chance_pct"
-	
-						"OnSuccess"
-						{
-							"SpawnUnit"
-							{
-								"UnitName"	"npc_undying_ghoul_defender"
-								"SpawnRadius"	"60"
-								"Duration"	"%summon_duration"
-								"Target"	"ATTACKER"
-							}
-						}
-					}
-				}
-			}
 
 			"modifier_enable_ignore_cast_angle_passive_datadriven"
 			{	
@@ -7993,93 +8038,132 @@
 				}
 			}
 
-			"modifier_undying_pb_dot_debuff_datadriven"
+			"modifier_defiling_plague_passive_datadriven"
 			{
-				"IsDebuff"	"1"
-				"IsPurgable"	"1"
-				"IsHidden"	"1"
-
-				"Duration"	"%dot_duration"
-	   			"Attributes"       "MODIFIER_ATTRIBUTE_MULTIPLE" 
-
-				//"EffectName"	"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
-				//"EffectAttachType"	"follow_origin"
-
-				"ThinkInterval"	"%tick_interval"
-	
-				"OnIntervalThink"
-				{
-					"Random"
-					{
-						"Chance"	"%crit_chance"
-	
-						"OnSuccess"
-						{
-							"RunScript"
-							{
-								"ScriptFile"	"heroes/globaled_hero_undying/rightclickdot.lua"
-								"Function"		"rightClickDotDamageCritical"
-							}
-						}
-
-						"OnFailure"
-						{
-							"RunScript"
-							{
-								"ScriptFile"	"heroes/globaled_hero_undying/rightclickdot.lua"
-								"Function"		"rightClickDotDamage"
-							}
-						}
-					}					
-				}
-			}
-
-			"modifier_undying_dummy_dot_debuff_datadriven"
-			{
-				"IsDebuff"		"1"
-				"IsPurgable"	"1"
-				"IsHidden"		"0"
-
-				"Duration"	"%dot_duration"
-
-				"EffectName"	"particles/units/heroes/hero_undying/undying_ambient.vpcf"
-				"EffectAttachType"	"follow_origin"
-			}
-
-			"modifier_undying_dot_application_passive_buff_datadriven"
-			{
-				"IsBuff"			"1"
-				"IsPurgable"		"0"
-				"Passive"			"1"
-				"IsHidden"			"1"
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"IsPurgable"	"0"
 
 				"OnAttackLanded"
 				{
-					"RemoveModifier"
+					"Random"
 					{
-						"ModifierName"		"modifier_undying_dummy_dot_debuff_datadriven"
-						"Target"			"TARGET"
+					    "Chance"            "%defiling_plague_chance"
+					    "OnSuccess"
+					    {
+						 	"CreateThinker"
+						 	{
+						 		"ModifierName"	"modifier_defiling_plague_thinker"
+						 		"Target" 		"TARGET"
+						 	}
+
+							"RunScript"
+							{
+							    "ScriptFile"    "heroes/globaled_hero_undying/defile.lua"
+							    "Function"      "ability_undying_defile_debuff_application"
+							}
+					    }
 					}
 
 					"ApplyModifier"
 					{
-						"ModifierName"		"modifier_undying_dummy_dot_debuff_datadriven"
-						"Target"			"TARGET"
+					    "ModifierName"  "modifier_undying_auto_attack_mana_regen_modifier"
+					    "Target"        "CASTER"
 					}
+					
+				}
 
-					"ApplyModifier"
-					{
-						"ModifierName"		"modifier_undying_pb_dot_debuff_datadriven"
-						"Target"			"TARGET"
-					}
+			}
 
+			"modifier_defiling_plague_disease_dispellable"
+			{
+				"IsPurgable"		"1"
+				"IsDebuff"		"1"
+				"IsHidden"		"0"
+				"Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+
+				"Duration"		"%defiling_plague_debuff_duration"
+
+				"ThinkInterval"		"%defiling_plague_debuff_tick_rate"
+
+				"OnIntervalThink"
+				{
 					"RunScript"
 					{
-						"ScriptFile"		"abilities/frcmana.lua"
-						"Function"			"ManaOnUndyingAttack"
+					    "ScriptFile"    "heroes/damage.lua"
+					    "Function"      "ability_undying_defiling_plague_dot_tick"
 					}
 				}
 			}
+
+			"modifier_defiling_plague_thinker"
+			{
+				"Aura"					""
+				"Aura_Radius"			"%radius"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
+				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+				"Duration"				"%defiling_plague_thinker_duration"
+	
+				"ThinkInterval"		"%defiling_plague_thinker_tick_rate"
+
+				"OnIntervalThink"
+				{
+					"ActOnTargets"
+					{
+					    "Target"
+					    {
+					        "Center"    "TARGET"
+					        "Radius"    "%radius"
+					        "Teams"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+					        "Types"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+					    }
+					
+					    "Action"    
+					    {
+
+					    }
+					}
+				}
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_alchemist/alchemist_acid_spray.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"00" "0 0 0"
+							"01" "%defiling_plague_thinker_radius 1 1"
+							"15" "0 0 0"
+							"16" "0 0 0"
+						}
+					}					
+				}
+
+
+			}
+
+
+			"modifier_undying_auto_attack_mana_regen_modifier"
+			{
+				"IsBuff"		"1"
+				"Duration"		"%mana_regen_duration"
+				"IsPurgable"	"1"
+				"IsHidden"		"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%mana_regen_bonus"
+				}
+			}
+
+			
+
+
 		}
 	}
 
@@ -8366,39 +8450,35 @@
 				"var_type"			"FIELD_FLOAT"
 				"duration"			"12"
 			}
-			"03"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"tooltip_base_damage"					"35"
-				// tooltip only; needs to be updated with units_custom changes
-			}
-			"04"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"base_attack_time"			"1"
-				// tooltip only; needs to be updated with units_custom changes
-			}
-			"05"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"tooltip_crit_bonus"				"125"
-				// tooltip only; needs to be updated with undying_pets_pb changes
-			}
-			"06"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"tooltip_crit_chance"				"30"
-				// tooltip only; needs to be updated with undying_pets_pb changes
-			}
 		}
 
 		"OnSpellStart"
 		{
+			"ActOnTargets"
+			{
+			    "Target"
+			    {
+			        "Center"    "CASTER"
+			        "Radius"    "99999"
+			        "Teams"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+			        "Types"     "DOTA_UNIT_TARGET_BASIC"
+			    }
+			
+			    "Action"    
+			    {
+			    	"RunScript"
+			    	{
+			    	    "ScriptFile"    "heroes/summon.lua"
+			    	    "Function"      "remove_ghoul"
+			    	}
+
+			    }
+			}
+
 			"SpawnUnit"
 			{
 				"UnitName"	"npc_undying_ghoul"
 				"SpawnRadius"	"120"
-				"Duration"	"%duration"
 				"Target"	"CASTER"
 			}
 
@@ -8411,86 +8491,6 @@
 
 	}
 
-	"undying_summon_ranged_ghast"
-	{
-		"BaseClass"	"ability_datadriven"
-		"MaxLevel"	"1"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"SpellImmunityType"			"SPELL_IMMUNITY_ALLIES_YES"
-		"AbilityCooldown"	"90"
-		"AbilityManaCost"	"15"
-		"AbilityTextureName"	"death_prophet_exorcism"
-		"AbilityCastPoint"		"0.2"
-		"AbilityDuration"		"%duration"
-
-		"precache"
-		{
-			"models" 	"models/creeps/neutral_creeps/n_creep_ghost_b/n_creep_ghost_red.vmdl"
-			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_visage.vsndevts"
-		}
-
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"	"FIELD_FLOAT"
-				"hit_points"	"2500"
-			}
-			"02"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"duration"			"12"
-			}
-			"03"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"tooltip_base_damage"					"75"
-				// tooltip only; needs to be updated with units_custom changes
-			}
-			"04"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"base_attack_time"			"2"
-				// tooltip only; needs to be updated with units_custom changes
-			}
-			"05"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"tooltip_crit_bonus"				"125"
-				// tooltip only; needs to be updated with undying_pets_pb changes
-			}
-			"06"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"tooltip_crit_chance"				"30"
-				// tooltip only; needs to be updated with undying_pets_pb changes
-			}
-			"07"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"tooltip_range"			"1600"
-				// tooltip only; needs to be updated with units_custom changes
-			}
-		}
-
-		"OnSpellStart"
-		{
-			"SpawnUnit"
-			{
-				"UnitName"	"npc_undying_ranged_ghast"
-				"SpawnRadius"	"120"
-				"Duration"	"%duration"
-				"Target"	"CASTER"
-			}
-
-			"FireSound"
-			{
-				"EffectName"		"Hero_Visage.SummonFamiliars.Cast"
-				"target"			"CASTER"
-			}
-		}
-
-	}
 
 	"undying_pets_pb"
 	{
@@ -8539,6 +8539,13 @@
 				"var_type"					"FIELD_INTEGER"
 				"crit_chance"				"30"
 			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"ghoul_summon_stun_duration"				"1"
+			}
+		
+			
 		}
 
 		"Modifiers"
@@ -8570,6 +8577,20 @@
 						}
 					}
 				}
+
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+					    "ModifierName"  "modifier_ghoul_cooldown_set_stun_datadriven"
+					    "Target"        "CASTER"
+					}
+					"ApplyModifier"
+					{
+					    "ModifierName"  "modifier_ghoul_cooldown_set_stun_animation_datadriven"
+					    "Target"        "CASTER"
+					}
+				}
 			}
 	
 			"modifier_coup_de_grace_crit_datadriven"
@@ -8590,6 +8611,23 @@
 					}
 				}
 			}
+
+			"modifier_ghoul_cooldown_set_stun_datadriven"
+			{
+				"IsPurgable"		"1"
+				"Duration"		"%ghoul_summon_stun_duration"
+
+				"OverrideAnimation"		"ACT_DOTA_DISABLED"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"					"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+
+
 		}
 	}
 
@@ -9277,7 +9315,7 @@
 					"Center"  	"CASTER"
 					"Radius" 	"%whirl_radius"
 					"Teams" 	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-					"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+					"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 				}
 			
 				"Action"    
@@ -9463,7 +9501,7 @@
 					"Center"  	"CASTER"
 					"Radius" 	"%whirl_radius"
 					"Teams" 	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-					"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+					"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 				}
 			
 				"Action"    
@@ -12287,7 +12325,7 @@
 									"Center"  	"TARGET"
 									"Radius" 	"%spread_radius"
 									"Teams" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-									"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+									"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 								}
 							
 								"Action"    
@@ -13064,7 +13102,7 @@
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ALLIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"AbilityTextureName"			"clinkz_wind_walk"
@@ -13184,7 +13222,7 @@
 				"crit_chance"					"30"
 			}
 		}
-	
+
 		"Modifiers"
 		{
 			"modifier_enable_ignore_cast_angle_passive_datadriven"
@@ -13224,6 +13262,10 @@
 							}
 						}
 					}
+				}
+
+				"OnCreated"
+				{
 				}
 			}
 	
@@ -19251,6 +19293,351 @@
 
 		}
 	}
+
+
+
+
+	"undying_infest_blood"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityTextureName"			"shadow_demon_soul_catcher"
+
+		"MaxLevel"						"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+	
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_undying/undying_ambient.vpcf"
+		    "soundfile" "soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
+		}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"instant_strike_weapon_damage"		"50"
+				// expressed as int as in 50% weapon damage
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"ability_cooldown"		"9.0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mana_cost"		"22"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"debuff_duration"		"16"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"debuff_think_interval"		"3.0"
+			}
+			"06"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"debuff_total_weapon_damage"		"100"
+			}
+			"07"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"ability_cooldown"		"1.5"
+			}
+
+			
+		}
+
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/damage.lua"
+			    "Function"      "ability_undying_infest_blood"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_undying_infest_blood_disease_dispellable"
+			{
+				"IsDebuff" 			"1"
+				"IsPurgable"		"1"
+
+				"Duration"		"%debuff_duration"
+				"Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+
+				"EffectName"	"particles/units/heroes/hero_undying/undying_ambient.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+
+				"ThinkInterval"		"%debuff_think_interval"
+
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+					    "ScriptFile"    "heroes/damage.lua"
+					    "Function"      "ability_undying_infest_blood_dot_tick"
+					}
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+					    "ScriptFile"    "heroes/damage.lua"
+					    "Function"      "ability_undying_infest_blood_dot_tick"
+					}
+				}
+
+			}
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+	"undying_chill_bones"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetType" 		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityTextureName"			"lich_frost_nova"
+
+		"MaxLevel"						"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+	
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_undying/undying_ambient.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+		    "soundfile" "soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
+		}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"instant_strike_weapon_damage"		"12"
+				// expressed as int as in 50% weapon damage
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"ability_cooldown"		"3"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mana_cost"		"0"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"debuff_duration"		"21"
+			}
+			"06"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"debuff_total_weapon_damage"		"45"
+			}
+			"07"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"ability_cast_range"		"625"
+			}
+			"08"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"debuff_think_interval"		"3.0"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attack_speed_reduction"		"-12"
+			}
+		}
+
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/damage.lua"
+			    "Function"      "ability_undying_chill_bones"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_undying_chill_bones_disease_dispellable"
+			{
+				"IsDebuff" "1"
+
+				"Duration"		"%debuff_duration"
+				"Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+
+				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+				"StatusEffectName"		"particles/status_fx/status_effect_frost_lich.vpcf"
+
+
+				"ThinkInterval"		"%debuff_think_interval"
+
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+					    "ScriptFile"    "heroes/damage.lua"
+					    "Function"      "ability_undying_infest_blood_dot_tick"
+					}
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+					    "ScriptFile"    "heroes/damage.lua"
+					    "Function"      "ability_undying_infest_blood_dot_tick"
+					}
+
+					"FireSound"
+					{
+					    "EffectName"    "Hero_Ancient_Apparition.ColdFeetTick"
+					    "Target"        "TARGET"
+					}
+				}
+			}
+
+			"modifier_undying_chill_bones_attack_speed_debuff_disease_dispellable"
+			{
+				"IsDebuff" "1"
+				"Duration"		"%debuff_duration"
+
+				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"StatusEffectName"		"particles/status_fx/status_effect_frost_lich.vpcf"
+
+				"Properties"
+				{
+	                "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%attack_speed_reduction"
+				}
+
+			}
+		}
+
+	}
+
+
+
+
+	"undying_ghoul_stun"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stun_duration"			"250"
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

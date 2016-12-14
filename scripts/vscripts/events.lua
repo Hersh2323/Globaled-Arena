@@ -26,14 +26,14 @@ function GameMode:OnNPCSpawned(keys)
 
   local npc = EntIndexToHScript(keys.entindex)
 
-  local npc = EntIndexToHScript(keys.entindex)
 
-  local npcName = npc:GetUnitName()
+  local npcName = npc:GetName()
   if npcName == "npc_globaled_valley_tango" then
 
-      local abilityLevelUpTarget = npc
+      -- local abilityLevelUpTarget = npc
+
       for abilitySlot=0,5 do
-          local ability = abilityLevelUpTarget:GetAbilityByIndex(abilitySlot)
+          local ability = npc:GetAbilityByIndex(abilitySlot)
 
           if ability then
               ability:SetLevel(1)

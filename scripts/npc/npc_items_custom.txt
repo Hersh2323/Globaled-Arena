@@ -1483,15 +1483,6 @@
 
 
 
-
-	//***************************************************************************************************************************************************************************************************************
-	//			Globaled Arena: Greater Heal
-	//			Edited for use in Globaled Arena by Stephen Hercia, all credit to original author (3/29/2015)
-	//***************************************************************************************************************************************************************************************************************
-	// Rewrite of Omniknight Purification
-	// Author: Noya
-	// Date: 8.1.2015.
-	// Notes: The Heal shows a green popup. To get rid of this just use the Lua version of Heal.
 	"item_ch_gh"
 	{
 		// General
@@ -4933,10 +4924,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
 		"AbilityCastRange"				"900"
+		"AbilityCastAnimation"				"ACT_DOTA_ATTACK"
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16"
+		"AbilityCooldown"				"30"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -4949,7 +4941,7 @@
 			"01"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"circle_tick_rate"				"1"
+				"circle_tick_rate"				"1.0"
 			}
 			"02"
 			{
@@ -4959,33 +4951,16 @@
 			"03"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"duration"						"12"
+				"duration"						"22"
 			}
 			"04"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"crit_chance"					"40"
+				"circle_total_weapon_damage"						"125"
 			}
-			"05"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"crit_damage"					"1.25"
-			}
-			"06"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"dot_duration"					"18"
-			}
-			"07"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"weapon_damage"					"0.06"
-			}
-			"08"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"tick_rate"						"3.0"
-			}
+
+
+			
 		}
 	
 		"precache"
@@ -5023,14 +4998,33 @@
 				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 				"Duration"				"%duration"
 	
+				"ThinkInterval"		"%circle_tick_rate"
+
+				"OnIntervalThink"
+				{
+					"ActOnTargets"
+					{
+					    "Target"
+					    {
+					        "Center"    "TARGET"
+					        "Radius"    "%radius"
+					        "Teams"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+					        "Types"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+					    }
+					
+					    "Action"    
+					    {
+							"RunScript"
+							{
+							    "ScriptFile"    "heroes/damage.lua"
+							    "Function"      "decaying_circle_damage"
+							}
+					    }
+					}
+				}
+
 				"OnCreated"
 				{
-					"RunScript"
-					{
-						"ScriptFile"	"heroes/hero_alchemist/acid_spray.lua"
-						"Function"		"AcidSpraySound"
-					}
-	
 					"AttachEffect"
 					{
 						"EffectName"		"particles/units/heroes/hero_alchemist/alchemist_acid_spray.vpcf"
@@ -5040,93 +5034,15 @@
 						{
 							"00" "0 0 0"
 							"01" "%radius 1 1"
-							"15" "25 150 25"
-							"16" "1 0 0"
-						}
-					}
-				}
-			}
-	
-			"modifier_acid_spray"
-			{
-				"IsDebuff"		"1"
-				"IsHidden"		"1"
-				"ThinkInterval"	"%circle_tick_rate"
-
-				"OnIntervalThink"
-				{
-					"ApplyModifier"
-					{
-						"ModifierName"		"modifier_undying_decaying_circle_dot_debuff_datadriven"
-						"Target"			"TARGET"
-					}
-
-					"RemoveModifier"
-					{
-						"ModifierName"		"modifier_undying_dummy_dot_debuff_datadriven"
-						"Target"			"TARGET"
-					}
-
-					"ApplyModifier"
-					{
-						"ModifierName"		"modifier_undying_dummy_dot_debuff_datadriven"
-						"Target"			"TARGET"
-					}
-				}
-			}
-
-			"modifier_undying_decaying_circle_dot_debuff_datadriven"
-			{
-				"IsDebuff"	"1"
-				"IsHidden"	"1"
-				"IsPurgable"	"1"
-
-				"Duration"		"%dot_duration"
-	   			"Attributes"       "MODIFIER_ATTRIBUTE_MULTIPLE" 
-
-				//"EffectName"	"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
-				//"EffectAttachType"	"follow_origin"
-
-				"ThinkInterval"	"3.0"
-	
-				"OnIntervalThink"
-				{
-					"Random"
-					{
-						"Chance"	"%crit_chance"
-	
-						"OnSuccess"
-						{
-							"RunScript"
-							{
-								"ScriptFile"	"heroes/globaled_hero_undying/rightclickdot.lua"
-								"Function"		"rightClickDotDamageCritical"
-							}
-						}
-
-						"OnFailure"
-						{
-							"RunScript"
-							{
-								"ScriptFile"	"heroes/globaled_hero_undying/rightclickdot.lua"
-								"Function"		"rightClickDotDamage"
-							}
+							"15" "0 0 0"
+							"16" "0 0 0"
 						}
 					}					
 				}
+
+
 			}
 
-			"modifier_undying_dummy_dot_debuff_datadriven"
-			{
-				"IsDebuff"		"1"
-				"IsPurgable"	"1"
-				"IsHidden"		"0"
-
-				"Duration"	"%dot_duration"
-
-				"EffectName"	"particles/units/heroes/hero_undying/undying_ambient.vpcf"
-				"EffectAttachType"	"follow_origin"
-			}
 		}	
 	}
 
@@ -5175,7 +5091,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"1.5"
 	
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -5183,7 +5099,7 @@
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"30"
+		"AbilityManaCost"				"5"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -5192,32 +5108,17 @@
 			"01"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"duration_one"					"6"
+				"duration"					"6"
 			}
 			"02"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"slow_movement_speed_one"			"-15"
+				"slow_movement"			"-6"
 			}
 			"03"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"duration_two"					"6"
-			}
-			"04"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"slow_movement_speed_two"			"-35"
-			}
-			"05"
-			{
 				"var_type"				"FIELD_INTEGER"
 				"tooltip_range"			"1200"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"root_duration"			"0.8"
 			}
 		}
 
@@ -5230,70 +5131,26 @@
 			}
 
 
-			"ApplyModifier"
+			"RunScript"
 			{
-				"Target" 		"TARGET"
-				"ModifierName"	"modifier_undying_feinds_grasp_debuff_datadriven"
-			}
-
-			"ApplyModifier"
-			{
-				"Target" 		"TARGET"
-				"ModifierName"	"modifier_fiends_grasp_root_debuff_datadriven"
-			}
-
-			"RemoveModifier"
-			{
-				"ModifierName"	"modifier_undying_feinds_grasp_debuff_two_datadriven"
-				"Target"		"TARGET"
+				"ScriptFile"	"heroes/globaled_hero_undying/fiendsgrasp.lua"
+				"Function"		"fiends_grasp_application"
+				"modifier"		"modifier_undying_feinds_grasp_debuff_datadriven"
 			}
 		}
 
 		"Modifiers"
 		{
-			"modifier_fiends_grasp_root_debuff_datadriven"
-			{
-				"Duration"		"%root_duration"
-				"IsDebuff"		"1"
-				"IsPurgable"	"1"
-
-				"states"
-				{
-					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
-
 			"modifier_undying_feinds_grasp_debuff_datadriven"
 			{
 				"IsDebuff"		"1"
-				"Duration"	"%duration_one"
+				"Duration"	"%duration"
 
 				"IsPurgable"	"1"
 				"IsHidden"      "0"
 
 				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
 				"StatusEffectName"		"particles/status_fx/status_effect_frost_lich.vpcf"
-
-				"OnAttacked"
-				{
-					"RunScript"
-					{
-						"ScriptFile"		"heroes/dispels/slowApplication.lua"
-						"Function"			"removeSlowsAll"
-					}
-
-					"ApplyModifier"
-					{
-						"ModifierName"	"modifier_undying_feinds_grasp_debuff_two_datadriven"
-						"Target"		"TARGET"
-					}
-
-					"RemoveModifier"
-					{
-						"ModifierName"	"modifier_undying_feinds_grasp_debuff_datadriven"
-						"Target"		"TARGET"
-					}
-				}
 
 				"OnCreated"
 				{
@@ -5304,57 +5161,18 @@
 					}
 				}
 
-				"Properties"
+				"OnDestroy"
 				{
-				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow_movement_speed_one" 
-				}
-			}
-
-			"modifier_undying_feinds_grasp_debuff_two_datadriven"
-			{
-				"IsDebuff"		"1"
-				"Duration"		"%duration_two"
-
-				"IsPurgable"	"1"
-				"IsHidden"      "0"
-
-				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
-				"StatusEffectName"		"particles/status_fx/status_effect_frost_lich.vpcf"
-
-				"OnAttacked"
-				{
-
 					"RunScript"
 					{
-						"ScriptFile"		"heroes/dispels/slowApplication.lua"
-						"Function"			"removeSlowsAll"
-					}
-
-					"RemoveModifier"
-					{
-						"ModifierName"	"modifier_undying_feinds_grasp_debuff_two_datadriven"
-						"Target"		"TARGET"
-					}
-
-					"ApplyModifier"
-					{
-						"ModifierName"	"modifier_undying_feinds_grasp_debuff_two_datadriven"
-						"Target"		"TARGET"
-					}
-				}
-
-				"OnCreated"
-				{
-					"FireSound"
-					{
-						"EffectName"		"Hero_Lich.ChainFrostImpact.Creep"
-						"Target"			"TARGET"
+						"ScriptFile"	"heroes/globaled_hero_undying/fiendsgrasp.lua"
+						"Function"		"fiends_grasp_destroy"
 					}
 				}
 
 				"Properties"
 				{
-				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow_movement_speed_two" 
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow_movement" 
 				}
 			}
 		}
@@ -8686,6 +8504,93 @@
 
 
 
+	"item_undying_spread_contagion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+   		"BaseClass"   					"item_datadriven"
+	    "Model"							"models/props_gameplay/recipe.vmdl" 
+   	    "Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+	    "ItemQuality"  					"artifact"
+
+ 	    "ItemKillable"					"0" 
+	    "ItemSellable"					"0"
+	  	"ItemPurchasable"				"0"
+	    "ItemDroppable"					"0"
+	    "ItemShareability"				"ITEM_NOT_SHAREABLE"
+
+ 	    "SideShop"						"0" 
+	    "SecretShop"					"0"
+
+	    "ItemStackable"					"0"
+ 	    "ItemPermanent"					"1"
+
+ 	    "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+    	"AbilityTextureName" 			"item_radiance"
+	
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+		}
+	
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"%tooltip_range"
+
+    	"AOERadius"						"%spread_radius"
+
+		"AbilityCastPoint"				"0.1"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14"
+	
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"5"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_range"			"500"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"spread_radius"			"550"
+			}
+
+			
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globaled_hero_undying/spreadcontagion.lua"
+			    "Function"      "spread_contagion_debuffs"
+			}
+		}
+
+		"Modifiers"
+		{
+
+		}
+	}
 
 
 

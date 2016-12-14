@@ -55,8 +55,12 @@ function dispelFriendly (event)
 	target:RemoveModifierByName("modifier_omniknight_burn_debuff_datadriven")
 	target:RemoveModifierByName("modifier_undying_non_crit_dot_debuff_datadriven")
 	target:RemoveModifierByName("modifier_undying_crit_dot_debuff_datadriven")
-	target:RemoveModifierByName("modifier_undying_fools_blood_debuff_datadriven")
 	target:RemoveModifierByName("modifier_undying_silence_debuff_datadriven")
+
+	target:RemoveModifierByName("modifier_undying_infest_blood_disease_dispellable")
+	target:RemoveModifierByName("modifier_undying_chill_bones_disease_dispellable")
+	target:RemoveModifierByName("modifier_undying_chill_bones_attack_speed_debuff_disease_dispellable")
+	target:RemoveModifierByName("modifier_defiling_plague_disease_dispellable")
 
 end	
 

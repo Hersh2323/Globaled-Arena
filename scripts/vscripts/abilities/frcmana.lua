@@ -1,10 +1,3 @@
-
-
--- ***************************************************************************************
---  Spell edited for use in Globaled Arena by Stephen Hercia 4/15/2015
--- 	All credit to original author
--- ***************************************************************************************
--- Created by Noya from https://moddota.com/forums/discussion/6/custom-mana-system
 function ManaOnAttack( event )
 	local hero = event.caster
 	local level = hero:GetLevel()
@@ -12,11 +5,7 @@ function ManaOnAttack( event )
 	hero:GiveMana(350)
 end
 
--- ***************************************************************************************
---  Spell edited for use in Globaled Arena by Stephen Hercia 4/15/2015
--- 	All credit to original author
--- ***************************************************************************************
--- Created by Noya from https://moddota.com/forums/discussion/6/custom-mana-system
+
 function EnergyOnAttack( event )
 	local ability = event.ability
 	local hero = event.caster

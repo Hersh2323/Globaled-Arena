@@ -91,7 +91,6 @@ function iceTrapTracker( keys )
 
 	-- If there is a valid unit in range then explode the mine
 	if #units > 0 then
-
 		if not caster.ice_trap:IsNull() then
 
 			ability:ApplyDataDrivenThinker(keys.caster, ability.trap_location, modifier_thinker, {duration = duration})
@@ -99,6 +98,5 @@ function iceTrapTracker( keys )
 			EmitSoundOnLocationWithCaster(ability.trap_location, "Hero_Ancient_Apparition.IceVortexCast", caster)
 			caster.ice_trap:ForceKill(true)
 		end
-
 	end
 end

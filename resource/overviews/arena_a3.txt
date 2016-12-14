@@ -1,8 +1,8 @@
 arena_a3
 {
 	material materials/overviews/arena_a3.vmat
-	pos_x -5056
-	pos_y 4944
-	scale 9.563
+	pos_x 0
+	pos_y -2147483648
+	scale -332306979139188339659867366684098560.000
 }
 

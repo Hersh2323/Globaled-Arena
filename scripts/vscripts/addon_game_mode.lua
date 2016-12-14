@@ -4,6 +4,11 @@ require('internal/util')
 require('gamemode')
 require('libraries/popups')
 require('libraries/animations')
+require('heroes/damage')
+
+require('solo/valley/spawnlist')
+require('solo/valley/settings')
+
 
 function Precache( context )
 --[[
@@ -33,8 +38,7 @@ function Precache( context )
   --PrecacheModel("models/props_debris/merchant_debris_chest002.vmdl", context)
 
   -- Sounds can precached here like anything else
-  --PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)
-
+  PrecacheResource("soundfile", "soundevents/game_sounds_ui.vsndevts", context)
   -- Entire items can be precached by name
   -- Abilities can also be precached in this way despite the name
   --PrecacheItemByNameSync("example_ability", context)

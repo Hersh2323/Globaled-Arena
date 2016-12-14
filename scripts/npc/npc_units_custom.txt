@@ -245,7 +245,9 @@
 		"AttackRange"				"1200"									// Range within a target can be attacked.
 		"ProjectileModel"			"particles/units/heroes/hero_morphling/morphling_base_attack.vpcf"		// Particle system model for projectile.
 		"ProjectileSpeed"			"1024"									// Speed of projectile.
-		"AttackRangeBuffer"			"0"
+		"AttackRangeBuffer"			"32"
+
+
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"		// Experience earn.
@@ -321,7 +323,7 @@
 		"AttackAnimationPoint"		"0.01"									// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"0"									// Range within a target can be acquired.
 		"AttackRange"				"180"									// Range within a target can be attacked.
-		"AttackRangeBuffer"			"0"
+		"AttackRangeBuffer"			"32"
 
 		// Attributes
 		//-------------------------------------------------------------------------------------------------------------
@@ -465,7 +467,7 @@
 		"AttackAnimationPoint"		"0.01"									// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"256"									// Range within a target can be acquired.
 		"AttackRange"				"128"									// Range within a target can be attacked.
-		"AttackRangeBuffer"			"0"
+		"AttackRangeBuffer"			"32"
 
 
 		"ProjectileModel"			""							// Particle system model for projectile.
@@ -540,13 +542,13 @@
 		// Attack
 		//-------------------------------------------------------------------------------------------------------------
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"			"35"									// Damage range min.
-		"AttackDamageMax"			"35"									// Damage range max.
-		"AttackRate"				"1"									// Speed of attack.
+		"AttackDamageMin"			"20"									// Damage range min.
+		"AttackDamageMax"			"20"									// Damage range max.
+		"AttackRate"				"1.7"									// Speed of attack.
 		"AttackAnimationPoint"		"0.01"									// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"1000"									// Range within a target can be acquired.
 		"AttackRange"				"128"									// Range within a target can be attacked.
-		"AttackRangeBuffer"			"0"
+		"AttackRangeBuffer"			"32"
 
 
 		// Attributes
@@ -586,154 +588,6 @@
 		"precache"
 		{
 			"model"			"models/heroes/undying/undying_minion_torso.vmdl"
-		}
-	}
-
-	"npc_undying_ranged_ghast"	
-	{
-		// Generalf
-		//-------------------------------------------------------------------------------------------------------------
-		"Model"						"models/creeps/neutral_creeps/n_creep_ghost_b/n_creep_ghost_red.vmdl"		// Model.
-		"BaseClass"					"npc_dota_creature"
-
-		"ModelScale" 				"1"
-
-		// Abilities
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"				"6"
-		"Ability1"					"undying_pets_pb"
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
-		"Ability5"					""
-		"Ability6"					""
-
-		// Armor
-		//-------------------------------------------------------------------------------------------------------------
-		"ArmorPhysical"				"0"										// Physical protection.
-
-		// Attack
-		//-------------------------------------------------------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"			"75"									// Damage range min.
-		"AttackDamageMax"			"75"									// Damage range max.
-		"AttackRate"				"2"									// Speed of attack.
-		"AttackAnimationPoint"		"0.75"									// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"1800"									// Range within a target can be acquired.
-		"AttackRange"				"1600"									// Range within a target can be attacked.
-		"AttackRangeBuffer"			"0"
-
-
-		"ProjectileModel"			"particles/units/heroes/hero_necrolyte/necrolyte_base_attack.vpcf"							// Particle system model for projectile.
-		"ProjectileSpeed"			"800"									// Speed of projectile.
-
-
-		// Attributes
-		//-------------------------------------------------------------------------------------------------------------
-		"AttributePrimary"				"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"			"0"									// Base strength
-		"AttributeStrengthGain"			"0"									// Strength bonus per level.
-		"AttributeBaseAgility"			"0"									// Base agility
-		"AttributeAgilityGain"			"0"									// Agility bonus per level.
-		"AttributeBaseIntelligence"		"0"									// Base intelligence
-		"AttributeIntelligenceGain"		"0"									// Intelligence bonus per level.
-
-		// Status	
-		//-------------------------------------------------------------------------------------------------------------
-		"StatusHealth"				"2500"									// Base health.
-		"StatusHealthRegen"			"50"									// Health regeneration rate.
-		"StatusMana"				"2500"										// Base mana.
-		"StatusManaRegen"			"250"									// Mana regeneration rate.
-		"VisionNightTimeRange"			"0"
-		"VisionDayTimeRange"			"0"
-
-		// Movement
-		//-------------------------------------------------------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_FLY"
-		"MovementSpeed"				"384"									// Speed.
-		"MovementTurnRate"			"0.5"									// Turning rate.
-				
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
-		"HealthBarOffset"			"220"
-		
-		"ParticleFile"				""
-		"GameSoundsFile"			""
-		"VoiceFile"					""			
-		
-		// Precache
-		//-------------------------------------------------------------------------------------------------------------
-		"precache"
-		{
-			"model"			"models/creeps/neutral_creeps/n_creep_ghost_b/n_creep_ghost_red.vmdl"
-		}
-	}
-
-	"npc_undying_ghoul_defender"	
-	{
-		// Generalf
-		//-------------------------------------------------------------------------------------------------------------
-		"Model"						"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"		// Model.
-		"BaseClass"					"npc_dota_creature"
-
-		"ModelScale" 				"0.8"
-
-		// Abilities
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"				"1"
-		"Ability1"					"ghoul_defender_pb"
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
-		"Ability5"					""
-		"Ability6"					""
-
-		// Armor
-		//-------------------------------------------------------------------------------------------------------------
-		"ArmorPhysical"				"0"										// Physical protection.
-
-		// Attack
-		//-------------------------------------------------------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"			"0"									// Damage range min.
-		"AttackDamageMax"			"0"									// Damage range max.
-		"AttackRate"				"1"									// Speed of attack.
-		"AttackAnimationPoint"		"0.325"									// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"1000"									// Range within a target can be acquired.
-		"AttackRange"				"180"									// Range within a target can be attacked.
-
-		// Attributes
-		//-------------------------------------------------------------------------------------------------------------
-		"AttributePrimary"				"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"			"0"									// Base strength
-		"AttributeStrengthGain"			"0"									// Strength bonus per level.
-		"AttributeBaseAgility"			"0"									// Base agility
-		"AttributeAgilityGain"			"0"									// Agility bonus per level.
-		"AttributeBaseIntelligence"		"0"									// Base intelligence
-		"AttributeIntelligenceGain"		"0"									// Intelligence bonus per level.
-		"AttackRangeBuffer"			"0"
-
-		"StatusHealth"					"10000"
-		"VisionNightTimeRange"			"0"
-		"VisionDayTimeRange"			"0"
-
-		// Movement
-		//-------------------------------------------------------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"0"									// Speed.
-		"MovementTurnRate"			"0.5"									// Turning rate.
-				
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
-		"HealthBarOffset"			"220"
-		
-		"ParticleFile"				"particles/units/heroes/hero_lycan.pcf"
-		"GameSoundsFile"			"scripts/game_sounds_heroes/game_sounds_lycan.txt"
-		"VoiceFile"					"scripts/voscripts/game_sounds_vo_lycan.txt"			
-		
-		// Precache
-		//-------------------------------------------------------------------------------------------------------------
-		"precache"
-		{
-			"model"			"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"
 		}
 	}
 
