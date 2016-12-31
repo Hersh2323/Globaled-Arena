@@ -29,6 +29,7 @@ function spread_contagion_debuffs(event)
 					else
 						infest_blood_ability:ApplyDataDrivenModifier(caster, units, "modifier_undying_infest_blood_disease_dispellable", {}) 
 						print("spread_contagion_debuffs method has detected units in radius of target.")
+						print("Units detected in radius: " .. units:GetUnitName())
 					end
 				end
 			else

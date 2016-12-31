@@ -4559,9 +4559,17 @@
 		{
 	    	"RunScript"
 	    	{
-	    		"ScriptFile"		"heroes/dispels/dispelMagic.lua"
-	    		"Function"			"dispelFriendly"
+	    		"ScriptFile"		"heroes/dispel.lua"
+	    		"Function"			"dispel_magic"
 	    	}
+
+
+
+	    //	"RunScript"
+	    //	{
+	    //		"ScriptFile"		"heroes/dispels/dispelMagic.lua"
+	    //		"Function"			"dispelFriendly"
+	    //	}
 
 			"FireEffect"
 			{
@@ -18202,7 +18210,7 @@
 
 			"ApplyModifier"
 			{
-				"ModifierName"	"modifier_lina_dragon_slave_slow_debuff_magic_dispellable_datadriven"
+				"ModifierName"	"modifier_lina_dragon_slave_movement_slow_effect_magical_effect_dispellable_datadriven"
 				"Flags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 				"Target" 		"TARGET"
 			}
@@ -18312,7 +18320,7 @@
 
 
 
-			"modifier_lina_dragon_slave_slow_debuff_magic_dispellable_datadriven"
+			"modifier_lina_dragon_slave_movement_slow_effect_magical_effect_dispellable_datadriven"
 			{
 				"IsDebuff"	"1"
 				"IsPurgable"		"1"
