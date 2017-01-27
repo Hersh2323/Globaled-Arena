@@ -1033,7 +1033,7 @@
 		"AttackDamageMin"			"325"									// Damage range min.
 		"AttackDamageMax"			"325"									// Damage range max.
 		"AttackRate"				"2.3"									// Speed of attack.
-		"AttackAnimationPoint"		"0.6"									// Normalized time in animation cycle to attack.
+		"AttackAnimationPoint"		"0.2"									// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"256"									// Range within a target can be acquired.
 		"AttackRange"				"1325"									// Range within a target can be attacked.
 		"AttackRangeBuffer" 		"32"
@@ -1759,6 +1759,8 @@
 		"Ability4"					"undying_silence"
 		"Ability5"					"undying_summon_ghoul"
 		"Ability6"					"undying_pb"
+
+
 		"AbilityLayout"				"6"
 
 		// Armor

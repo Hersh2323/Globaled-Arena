@@ -71,10 +71,10 @@ end
 
 if GetMapName()	== "valley_a1" then
 
--- Variables for valley_a1
---[[	
-	GLOBALED_SOLO_QUEST_ONE_COMPLETE = 0	
-]]--
+	-- Variables for valley_a1
+	--[[	
+		GLOBALED_SOLO_QUEST_ONE_COMPLETE = 0	
+	]]--
 
 	GLOBALED_VALLEY_QUEST_TEXT_DURATION = 180
 

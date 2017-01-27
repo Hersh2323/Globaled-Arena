@@ -1,0 +1,8 @@
+hall_of_the_gladiators
+{
+	material materials/overviews/hall_of_the_gladiators.vmat
+	pos_x -16384
+	pos_y 16384
+	scale 32.000
+}
+
