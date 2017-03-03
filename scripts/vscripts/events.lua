@@ -32,7 +32,7 @@ function GameMode:OnNPCSpawned(keys)
 
       -- local abilityLevelUpTarget = npc
 
-      for abilitySlot=0,5 do
+      for abilitySlot=0,6 do
           local ability = npc:GetAbilityByIndex(abilitySlot)
 
           if ability then

@@ -367,7 +367,11 @@ function ability_undying_chill_bones(event)
 				local abilityTwo = caster:FindAbilityByName("undying_infest_blood")
 				if abilityTwo then
 					local cooldownTwo = 1.5
-					abilityTwo:StartCooldown(cooldownTwo)
+
+					local remaining_cd = abilityTwo:GetCooldownTimeRemaining()
+					if remaining_cd < cooldownTwo then
+						abilityTwo:StartCooldown(cooldownTwo)
+					end
 				end
 
 

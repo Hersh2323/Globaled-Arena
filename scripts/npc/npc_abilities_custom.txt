@@ -4214,7 +4214,7 @@
 			    "Target"
 			    {
 			        "Center"    "CASTER"
-			        "Radius"    "99999999"
+			        "Radius"    "GLOBAL"
 			        "Teams"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 			        "Types"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 			    }

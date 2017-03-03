@@ -75,24 +75,27 @@ function remove_drow_buddy(event)
 
 		local ability1 = target:GetAbilityByIndex(0)
 		local ability1Cooldown = ability1:GetCooldownTimeRemaining()
-		if ability1Cooldown > 0 then
-			caster.DrowBuddyCds.ability1Cooldown = ability1Cooldown
-		else
+
+		if ability1Cooldown then
+			if ability1Cooldown > 0 then
+				caster.DrowBuddyCds.ability1Cooldown = ability1Cooldown
+			end
 		end
 
-		local ability2 = target:GetAbilityByIndex(1)
-		local ability2Cooldown = ability2:GetCooldownTimeRemaining()
-		if ability2Cooldown > 0 then
-			caster.DrowBuddyCds.ability2Cooldown = ability2Cooldown
-		else
+		if ability2Cooldown then
+			local ability2 = target:GetAbilityByIndex(1)
+			local ability2Cooldown = ability2:GetCooldownTimeRemaining()
+			if ability2Cooldown > 0 then
+				caster.DrowBuddyCds.ability2Cooldown = ability2Cooldown
+			end
 		end
+
 
 
 		local ability3 = target:GetAbilityByIndex(2)
 		local ability3Cooldown = ability3:GetCooldownTimeRemaining()
 		if ability3Cooldown > 0 then
 			caster.DrowBuddyCds.ability3Cooldown = ability3Cooldown
-		else
 		end
 
 
@@ -100,7 +103,6 @@ function remove_drow_buddy(event)
 		local ability6Cooldown = ability6:GetCooldownTimeRemaining()
 		if ability6Cooldown > 0 then
 			caster.DrowBuddyCds.ability6Cooldown = ability6Cooldown
-		else
 		end
 
 

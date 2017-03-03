@@ -367,7 +367,7 @@ function GameMode:OnHeroInGame(hero)
 
 
 
-    for abilitySlot=0,117 do
+    for abilitySlot=0,17 do
         local ability = hero:GetAbilityByIndex(abilitySlot)
 
         if ability then
