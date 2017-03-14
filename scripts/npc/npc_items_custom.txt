@@ -214,6 +214,12 @@
 	
 		"OnSpellStart"
 		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "cm_root_nova_animation"
+			}
+
 			"FireSound"
 			{
 				"EffectName"	"Hero_Crystal.CrystalNova"
@@ -227,7 +233,7 @@
 	
 				"ControlPoints"
 				{
-					"01"				"%radius 2 %radius*2"
+					"01"				"%radius 2 %radius"
 				}
 
 
@@ -1508,7 +1514,7 @@
     	"ItemDisassembleRule" 			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"MaxLevel"						"1"
@@ -1920,7 +1926,7 @@
 				"Aura"			"modifier_song_of_the_siren_datadriven"
 				"Aura_Radius"	"%radius"
 				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_BUILDING | DOTA_UNIT_TARGET_MECHANICAL"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_BUILDING"
 				"Aura_Flags"	"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
 			}
 	
@@ -2029,9 +2035,9 @@
 		"MaxUpgradeLevel"				"1"
 		"ItemBaseLevel"					"1"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"FightRecapLevel"				"1"
 		"AbilityTextureName"			"item_pipe"
@@ -2049,7 +2055,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"400"
+		"AbilityManaCost"				"125"
 	
 		
 		// Special
@@ -2058,12 +2064,12 @@
 		{
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
+				"var_type"				"FIELD_INTEGER"
 				"duration"				"60"
 			}
 			"02"
 			{
-				"var_type"				"FIELD_FLOAT"
+				"var_type"				"FIELD_INTEGER"
 				"damage_absorb"			"300"
 			}
 			"03"
@@ -2087,7 +2093,15 @@
 				"ScriptFile"	"heroes/hero_abaddon/aphotic_shield.lua"
 				"Function"		"AphoticShield"
 			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"heroes/animations.lua"
+				"Function"		"ice_shield_animation"
+			}
 		
+
+
 			"RemoveModifier"
 			{
 				"ModifierName"	"modifier_external_ice_shield_absorb_crystal_maiden_buff_magical_dispellable_datadriven"
@@ -3125,7 +3139,7 @@
     // General
     //-------------------------------------------------------------------------------------
     "BaseClass"							"item_datadriven"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
@@ -3149,9 +3163,6 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1200"
-    "AbilityCastPoint"					"0.125"
-    "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
-    "AnimationPlaybackRate"				"1.25"
     "AbilityCooldown"					"1.5"
     "AbilityManaCost"					"200"
     "AbilityDuration"					"0"
@@ -3218,6 +3229,14 @@
             "MoveSpeed"         "%projectile_speed"
 	        "SourceAttachment"  "DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
 	    }
+
+
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/animations.lua"
+		    "Function"      "cm_fast_strike_animation"
+		}
+
     }
 
     "OnProjectileHitUnit"
@@ -3336,6 +3355,13 @@
 
     "OnSpellStart"
     {
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/animations.lua"
+		    "Function"      "necro_instant_cast_animation"
+		}
+
+
 		"TrackingProjectile"
         {
             "Target"			"TARGET"
@@ -3472,6 +3498,13 @@
 
     "OnSpellStart"
     {
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/animations.lua"
+		    "Function"      "necro_instant_cast_animation"
+		}
+
+
 		"TrackingProjectile"
         {
             "Target"			"TARGET"
@@ -3530,7 +3563,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityTextureName"			"item_blink"
 		"MaxLevel"						"1"
 			// Item Info
@@ -3559,7 +3592,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"%range"
-		"AbilityCastPoint"				"0.725"
+		"AbilityCastPoint"				"0.0"
 	
 		// Animation
 		//-------------------------------------------------------------------------------------------------------------
@@ -3612,6 +3645,24 @@
 			{
 				"EffectName"		"Hero_Spectre.HauntCast"
 				"Target"			"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_necrolyte_portal_animation_datadriven"
+			{
+				"IsHidden"	"1"
+				"Duration"	"0.03"
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+					    "ScriptFile"    "heroes/animations.lua"
+					    "Function"      "necro_teleport_animation"
+					}
+				}
 			}
 		}
 	}
@@ -4994,7 +5045,7 @@
 				"Aura"					"modifier_acid_spray"
 				"Aura_Radius"			"%radius"
 				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_MECHANICAL"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
 				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 				"Duration"				"%duration"
 	
@@ -5880,7 +5931,7 @@
 		"BaseClass"						"item_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityTextureName"			"item_sheepstick"
@@ -6116,7 +6167,7 @@
 		"BaseClass"						"item_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityTextureName"			"item_vladmir"
@@ -6412,7 +6463,7 @@
 		"BaseClass"						"item_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityTextureName"			"item_cyclone"
@@ -7413,7 +7464,7 @@
 				"Aura_Radius"			"%radius"
 
 				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_MECHANICAL"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
 				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_NONE"
 
 				"Duration"				"%flare_duration"

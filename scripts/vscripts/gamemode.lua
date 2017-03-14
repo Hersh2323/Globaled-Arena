@@ -42,6 +42,10 @@ require('settings')
 -- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
 require('events')
 
+-- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
+require('heroes/animations')
+
+
 
 -- This is a detailed example of many of the containers.lua possibilities, but only activates if you use the provided "playground" map
 if GetMapName() == "valley_a1" then

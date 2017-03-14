@@ -54,6 +54,8 @@ function portalTeleport (keys)
 			local coolDownTime = ability:GetLevelSpecialValueFor("cooldown", 0)
 			ability:StartCooldown(coolDownTime)
 
+			ability:ApplyDataDrivenModifier(caster, caster, "modifier_necrolyte_portal_animation_datadriven", {}) 
+			
 			caster:Stop()	
 		end
 

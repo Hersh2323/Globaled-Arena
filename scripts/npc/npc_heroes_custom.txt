@@ -29,13 +29,26 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"			"6"
+        "AbilityLayout"    "17"
+
 		"Ability1"				"frc_ds"								// Ability 1
 		"Ability2"				"frc_silence"								// Ability 2
 		"Ability3"				"frc_b"									// Ability 3
-		"Ability4"				"frc_hasten"								// Ability 4
+		"Ability4"				"barebones_empty12"								// Ability 4
  		"Ability5"				"frc_aquamusprime"
  		"Ability6"				"frc_pb"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -46,8 +59,8 @@
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"400"									// Damage range min.
 		"AttackDamageMax"			"400"									// Damage range max.
-		"AttackRate"				"2"										// Speed of attack.
-		"AttackAnimationPoint"		"2"										// Normalized time in animation cycle to attack.
+		"AttackRate"				"2.35"										// Speed of attack.
+		"AttackAnimationPoint"		"2.35"										// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"256"									// Range within a target can be acquired.
 		"AttackRange"				"1200"									// Range within a target can be attacked.
 		"ProjectileModel"			"particles/units/heroes/hero_morphling/morphling_base_attack.vpcf"					// Particle system model for projectile.
@@ -278,13 +291,26 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"			"6"
+		"AbilityLayout"			"17"
 		"Ability1"				"pa_meld_revision"				
 		"Ability2"				"sma_phantomstrike"						
 		"Ability3"				"pa_impair"
 		"Ability4"				"pa_stealth"
 		"Ability5"				"sma_empower_poison"
 		"Ability6"				"sma_pb"					
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
+
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -532,13 +558,25 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"				"6"
+		"AbilityLayout"				"17"
 		"Ability1"					"storm_spirit_absorb"  
 		"Ability2"					"ch_h"		  
 		"Ability3"					"storm_spirit_channel_heal"	
 		"Ability4"					"storm_spirit_bounce_heal"		 
 		"Ability5"					"ch_absorb"	   
 		"Ability6"					"storm_spirit_pb"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -799,13 +837,28 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityLayout"				"17"
+
 		"Ability1"					"necrolyte_harvest_season"					// Ability 1
 		"Ability2"					"necrolyte_fester"								// Ability 2
 		"Ability3"					"necrolyte_devour"									// Ability 3
 		"Ability4"					"necrolyte_dot_three"								// Ability 4
  		"Ability5"					"necrolyte_summon_ghost"
 		"Ability6"					"necrolyte_pb"				// Ability 6
-		"AbilityLayout"				"6"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "all_heroes_gcd_datadriven"
+
+
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -818,8 +871,8 @@
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"25"									// Damage range min.
 		"AttackDamageMax"			"25"									// Damage range max.
-		"AttackRate"				"2.5"										// Speed of attack.
-		"AttackAnimationPoint"		"0.9"									// Normalized time in animation cycle to attack.
+		"AttackRate"				"1.5"										// Speed of attack.
+		"AttackAnimationPoint"		"0.000000"									// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"256"									// Range within a target can be acquired.
 		"AttackRange"				"1200"									// Range within a target can be attacked.
 		"ProjectileModel"			"particles/units/heroes/hero_necrolyte/necrolyte_base_attack.vpcf"							// Particle system model for projectile.
@@ -1015,13 +1068,26 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"				"6"
+		"AbilityLayout"				"17"
 		"Ability1"					"drow_slow_shot"
 		"Ability2"					"drow_poison_sting"
 		"Ability3"					"drow_silence"
 		"Ability4"					"drow_knockout"
 		"Ability5"					"drow_buddy"
 		"Ability6"					"drow_pb"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
+
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -1281,13 +1347,28 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityLayout"			"17"
+
 		"Ability1"				"enchantress_nuture"
 		"Ability2"				"enchantress_rejuvinate"
 		"Ability3"				"treant_heal_three"
 		"Ability4"				"treant_root"
 		"Ability5"				"enchantress_bear_time"
 		"Ability6"				"enchantress_cleanse_poison"
-		"AbilityLayout"			"6"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
+
+
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -1480,13 +1561,27 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityLayout"				"17"
+
+
 		"Ability1"					"omniknight_heal"
 		"Ability2"					"omniknight_empower"
 		"Ability3"					"omniknight_burn"
 		"Ability4"					"omniknight_aoe"
 		"Ability5"					"omniknight_stun"
 		"Ability6"					"omniknight_pb"
-		"AbilityLayout"				"6"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -1753,6 +1848,8 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityLayout"				"17"
+
 		"Ability1"					"undying_hook"
 		"Ability2"					"undying_infest_blood"
 		"Ability3"					"undying_chill_bones"
@@ -1761,7 +1858,18 @@
 		"Ability6"					"undying_pb"
 
 
-		"AbilityLayout"				"6"
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
+
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -1928,6 +2036,7 @@
 		"LastHitChallengeRival"		"npc_dota_hero_skeleton_king"
 		"HeroSelectSoundEffect"		"Hero_BountyHunter.Pick"
 
+		"AbilityLayout"	"17"
 
 		"Ability1"		"pa_meld_revision"
 		"Ability2"		"bh_phantomstrike"
@@ -1935,7 +2044,18 @@
 		"Ability4"		"pa_stealth"
 		"Ability5"		"bh_haste_strikes"
 		"Ability6"		"bh_bleed_strike"
-		"AbilityLayout"	"6"
+
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -2216,7 +2336,7 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityLayout"				"6"
+		"AbilityLayout"				"17"
 		"Ability1"					"lina_ds"								
 		"Ability2"					"frc_silence"							
 		"Ability3"					"frc_b"									
@@ -2224,6 +2344,17 @@
  		"Ability5"					"lina_slow_burn"
  		"Ability6"					"lina_pb"
 
+        "Ability7"      "barebones_empty1"
+        "Ability8"      "barebones_empty2"
+        "Ability9"      "barebones_empty3"
+        "Ability10"      "barebones_empty4"
+        "Ability11"      "barebones_empty5"
+        "Ability12"      "barebones_empty6"
+        "Ability13"      "barebones_empty7"
+        "Ability14"      "barebones_empty8"
+        "Ability15"      "barebones_empty9"
+        "Ability16"      "barebones_empty10"
+        "Ability17"      "barebones_empty11"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
