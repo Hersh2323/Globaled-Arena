@@ -40,8 +40,6 @@ USE_CUSTOM_TOP_BAR_VALUES = true        -- Should we do customized top bar value
 TOP_BAR_VISIBLE = true                  -- Should we display the top bar score/count at all?
 SHOW_KILLS_ON_TOPBAR = true             -- Should we display kills only on the top bar? (No denies, suicides, kills by neutrals)  Requires USE_CUSTOM_TOP_BAR_VALUES
 
--- Gcd for all heroes
-GLOBALED_GLOBAL_COOLDOWN = 0.75
 
 
 

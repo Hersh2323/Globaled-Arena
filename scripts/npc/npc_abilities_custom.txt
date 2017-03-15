@@ -5558,7 +5558,6 @@
 		"AbilityTextureName"			"shadow_demon_demonic_purge"
 		"MaxLevel"						"1"
 		"AbilityCastRange"				"0"
-		"AbilityCooldown"				"0.0"
 		"AOERadius"						"%spread_radius"
 		"AbilityCastPoint"				"0.0"
 		"AbilityManaCost"				"0"
@@ -5902,10 +5901,9 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1200"
-    "AbilityCastPoint"					"0.735"
+    "AbilityCastPoint"					"1.25"
     "AnimationPlaybackRate"				"1"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
-    "AbilityCooldown"					"0"
     "AbilityManaCost"					"250"
     "AbilityDuration"					"%duration"
 
@@ -6074,10 +6072,9 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1200"
-    "AbilityCastPoint"					"1"
+    "AbilityCastPoint"					"1.25"
     "AnimationPlaybackRate"				"1"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
-    "AbilityCooldown"					"6"
     "AbilityManaCost"					"400"
     "AbilityDuration"					"%duration"
 
@@ -6347,8 +6344,6 @@
     "AbilityCastPoint"					"0"
     "AnimationPlaybackRate"				"1"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
-    "AbilityCooldown"					"1.5"
-    "AbilitySharedCooldown"				"necrolyte_curses"
     "AbilityManaCost"					"250"
     "AbilityDuration"					"%duration"
 
@@ -13001,7 +12996,6 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"1.5"
 
 		
 		// Damage.
@@ -13056,16 +13050,20 @@
 			"particle"		"particles/units/heroes/hero_huskar/huskar_inner_vitality_glyph_caster.vpcf"
 		}
 		
+
 		"OnSpellStart"
 		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
+			}
+
 			"RunScript"
 			{
 			    "ScriptFile"    "heroes/animations.lua"
 			    "Function"      "necro_instant_cast_animation"
 			}
-
-
-
 
 			"TrackingProjectile"
 	        {
@@ -19882,19 +19880,25 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"necrophos_gcd"			"1.5"
+				"global_cooldown"			"1.5"
 			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"pa_global_cooldown"			"1.0"
+			}
+
 		}
 
 		"Modifiers"
 		{
 		    "modifier_gcd_activated_datadriven"
 		    {
-		        "Passive"           "1"
-		        "IsHidden"          "1"
+		        "Passive"           "0"
+		        "IsHidden"          "0"
 		        "IsDebuff"          "0"
-				"IsPurgable"		"0"
-				"Duration"		"0.03"
+				"IsPurgable"		"1"
+				"Duration"		"%global_cooldown"
 		
 		        "OnCreated"
 		        {
@@ -19907,6 +19911,8 @@
 		        }
 		    }
 
+
+		    
 		}
 	}
 

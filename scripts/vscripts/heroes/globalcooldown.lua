@@ -1,6 +1,24 @@
+function activate_gcd_without_ability_specific(event)
+	local caster = event.caster
+	local gcd_ability = caster:FindAbilityByName("all_heroes_gcd_datadriven")
 
-function globalCooldown ()
+	if gcd_ability then
 
+		gcd_ability:ApplyDataDrivenModifier(caster, caster, "modifier_gcd_activated_datadriven", {}) 
+	else
+		print("[GCD][ gcd_ability not found ]")
+	end
+end
+
+function cancel_gcd(event)
+	local caster = event.caster
+
+	local gcd_modifier = caster:FindModifierByName("modifier_gcd_activated_datadriven")
+
+	if gcd_modifier then
+		local gcd_time_remaining = gcd_modifier:GetDuration()
+		print("[GCD][ gcd_time_remaining: " .. gcd_time_remaining .. " ]")
+	end
 end
 
 function activate_gcd(event)
@@ -9,22 +27,34 @@ function activate_gcd(event)
 
 
 	if caster:GetUnitName() == "npc_dota_hero_necrolyte" then
-		local ability_1 = caster:GetAbilityByIndex(1)			if ability_1 then print("[GCD][" .. ability_1:GetAbilityName() .. "] Ability_1 not nil") end
 
-		local ability_2 = caster:GetAbilityByIndex(2)			if ability_2 then print("[GCD][" .. ability_2:GetAbilityName() .. "] Ability_2 not nil") end
+		local gcd_duration = ability:GetLevelSpecialValueFor("global_cooldown", ability:GetLevel() )
 
-		local ability_3 = caster:GetAbilityByIndex(3)			if ability_3 then print("[GCD][" .. ability_3:GetAbilityName() .. "] Ability_3 not nil") end
+	    for abilitySlot=0,17 do
+	        local zAbility = caster:GetAbilityByIndex(abilitySlot)
 
-		local ability_4 = caster:GetAbilityByIndex(4)			if ability_4 then print("[GCD][" .. ability_4:GetAbilityName() .. "] Ability_4 not nil") end
+	        if zAbility then
+	        	local zAbility_cooldown_time_remaining = zAbility:GetCooldownTimeRemaining()
+	        	if zAbility_cooldown_time_remaining then
+	        		if zAbility_cooldown_time_remaining < gcd_duration then
+	        			zAbility:StartCooldown(gcd_duration)
+	        		end
+	        	end
+	        end
+	    end
 
-		local ability_5 = caster:GetAbilityByIndex(5)			if ability_5 then print("[GCD][" .. ability_5:GetAbilityName() .. "] Ability_5 not nil") end
+	    for itemSlot=0,17 do
+	        local yAbility = caster:GetItemInSlot(itemSlot)
 
-		local ability_6 = caster:GetAbilityByIndex(6)			if ability_6 then print("[GCD][" .. ability_6:GetAbilityName() .. "] Ability_6 not nil") end
-
-		--local ability_7 = caster:(6)			if ability_7 then print("[GCD][" .. ability_7:GetAbilityName() .. "] Ability_7 not nil") end
-
-
-
+	        if yAbility then
+	        	local yAbility_cooldown_time_remaining = yAbility:GetCooldownTimeRemaining()
+	        	if yAbility_cooldown_time_remaining then
+	        		if yAbility_cooldown_time_remaining < gcd_duration then
+	        			yAbility:StartCooldown(gcd_duration)
+	        		end
+	        	end
+	        end
+	    end
 
 	else
 		print("[GCD] activate_gcd did not detect npc_dota_hero_necrolyte as unit name")
@@ -32,3 +62,4 @@ function activate_gcd(event)
 
 
 end
+

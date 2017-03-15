@@ -3435,8 +3435,6 @@
     "AbilityCastPoint"					"0.125"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AnimationPlaybackRate"				"2"
-    "AbilityCooldown"					"1.5"
-    "AbilitySharedCooldown"				"necrolyte_curses"
     "AbilityManaCost"					"100"
   //  "AbilityDuration"					""
 
@@ -3668,140 +3666,7 @@
 	}
 
 
-"item_necrolyte_stun"
-{
-    // General
-    //-------------------------------------------------------------------------------------
-    "BaseClass"							"item_datadriven"
-	"AbilityTextureName"				"item_basher"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-    "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
-    "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-    "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_YES"
-    "AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
-    "Maxlevel"      				    "1"
 
-    // Stats
-    //-------------------------------------------------------------------------------------
-    "AbilityCastRange"					"%tooltip_range"
-    "AbilityCastPoint"					"0.125"
-    "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
-    "AnimationPlaybackRate"				"2"
-    "AbilityCooldown"					"30"
-    "AbilityManaCost"					"100"
-    "AbilityDuration"					"%duration"
-
-	// Item Info
-	//-------------------------------------------------------------------------------------------------------------
-	"ItemCost"						"0"
-	"ItemInitialCharges"			"0"
-	"ItemDroppable"					"0"
-	"ItemSellable"					"0"
-	"ItemRequiresCharges"			"0"
-	"ItemShareability"				"ITEM_NOT_SHAREABLE"
-	"ID"							"3805"
-	"MaxUpgradeLevel"				"1"
-	"ItemBaseLevel"					"1"
-
-
-    // Special
-    //-------------------------------------------------------------------------------------
-    "AbilitySpecial"
-    {
-		"01"
-		{
-			"var_type"					"FIELD_INTEGER"
-			"projectile_speed"			"1200"
-		}
-		"02"
-		{
-			"var_type"				"FIELD_FLOAT"
-			"duration"				"2.0"
-		}
-		"03"
-		{
-			"var_type"				"FIELD_INTEGER"
-			"tooltip_range"		"900"
-		}
-    }
-
-    // Data Driven
-    //-------------------------------------------------------------------------------------
-
-    "Precache"
-    {
-    	"particle"		"particles/units/heroes/hero_bane/bane_enfeeble_chain.vpcf"
-    	"particle"		""
-    	"soundfile"		"soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
-    }
-
-
-
-
-
-    "OnSpellStart"
-    {
-		"TrackingProjectile"
-        {
-            "Target"			"TARGET"
-            "EffectName"        ""
-            "Dodgeable"         "1"
-            "ProvidesVision"    "0"
-            "MoveSpeed"         "%projectile_speed"
-	        "SourceAttachment"  "DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
-	    }
-    }
-
-    "OnProjectileHitUnit"
-    {
-    	"DeleteOnHit"		"1"
-
-        "ApplyModifier"
-        {
-            "Target"        "TARGET"
-            "ModifierName"  "item_necrolye_stun_datadriven"
-        }
-    }
-
-
-
-    "Modifiers" 
-    { 
-        "item_necrolye_stun_datadriven"
-        {
-            "IsDebuff"  			"1"
-            "IsPurgable"	"1"
-            "Duration" 				"%duration"
-
-			"OverrideAnimation"		"ACT_DOTA_DISABLED"
-	
-			"EffectName"			"particles/generic_gameplay/generic_stunned.vpcf"
-			"EffectAttachType"		"follow_overhead"
-
-			"OnCreated"
-			{
-				"AttachEffect"
-				{
-					"EffectName"		"particles/items2_fx/shadow_amulet_activate_end_flash3.vpcf"
-					"EffectAttachType"		"attach_origin"
-					"Target"			"TARGET"
-				}
-
-				"FireSound"
-				{
-					"EffectName"		"Hero_Bane.Nightmare"
-					"Target"			"TARGET"
-				}
-			}
-
-	
-			"States"
-			{
-				"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
-			}
-        }
-    }
-}
 
 	"item_omniknight_radiance"
 	{
@@ -6187,7 +6052,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"800"
 		"AbilityCastPoint"				"1.5"
-		"AbilityCooldown"				"2"
 		"AbilityManaCost"				"0"
 	    "AnimationPlaybackRate"				"1"
 	    "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
@@ -6789,7 +6653,6 @@
     "AbilityCastPoint"					"1.0"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AnimationPlaybackRate"				"1.0"
-    "AbilityCooldown"					"6"
     "AbilityManaCost"					"250"
     "AbilityDuration"					"0"
     "AbilityDamage"						"0"
