@@ -40,3 +40,47 @@ function necro_teleport_animation(event)
 
 	StartAnimation(caster, {duration=0.6, activity=ACT_DOTA_VICTORY, rate=1.0})
 end
+
+function omni_instant_cast_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.5, activity=ACT_DOTA_CAST_ABILITY_2, rate=1.1})
+end
+
+function drow_instant_cast_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.3, activity=ACT_DOTA_ATTACK, rate=1.7})
+end
+
+function cm_ds_cast_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.4, activity=ACT_DOTA_CAST_ABILITY_2, rate=1.2})
+end
+
+function enchantress_instant_cast_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.4, activity=ACT_DOTA_CAST_ABILITY_2, rate=1.2})
+end
+
+function lina_instant_cast_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.55, activity=ACT_DOTA_CAST_ABILITY_1, rate=1.3})
+end
+
+
+function lina_instant_cast_blaze_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.55, activity=ACT_DOTA_CAST_ABILITY_2, rate=1.3})
+end
+
+function storm_spirit_instant_cast_animation(event)
+	local caster = event.caster
+
+	StartAnimation(caster, {duration=0.55, activity=ACT_DOTA_CAST_ABILITY_2, rate=1.3})
+end
+

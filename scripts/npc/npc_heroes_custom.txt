@@ -34,7 +34,7 @@
 		"Ability1"				"frc_ds"								// Ability 1
 		"Ability2"				"frc_silence"								// Ability 2
 		"Ability3"				"frc_b"									// Ability 3
-		"Ability4"				"barebones_empty12"								// Ability 4
+		"Ability4"				"cm_quick_slow"								// Ability 4
  		"Ability5"				"frc_aquamusprime"
  		"Ability6"				"frc_pb"
 
@@ -48,7 +48,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -309,7 +309,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 
 		// Armor
@@ -576,7 +576,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -1086,7 +1086,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 
 		// Armor
@@ -1366,7 +1366,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 
 
@@ -1581,7 +1581,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -1868,7 +1868,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 
 		// Armor
@@ -2055,7 +2055,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
@@ -2354,7 +2354,7 @@
         "Ability14"      "barebones_empty8"
         "Ability15"      "barebones_empty9"
         "Ability16"      "barebones_empty10"
-        "Ability17"      "barebones_empty11"
+        "Ability17"      "all_heroes_gcd_datadriven"
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------

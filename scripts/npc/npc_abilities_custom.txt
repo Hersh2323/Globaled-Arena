@@ -424,7 +424,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -444,7 +444,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"500"
-		"AbilityCastPoint"				"0.000000"
+		"AbilityCastPoint"				"0"
 		"AnimationPlaybackRate" 		"1.25"
 
 	
@@ -560,6 +560,14 @@
 				"EffectName"	"Hero_Lina.DragonSlave"
 				"Target"		"CASTER"
 			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "cm_ds_cast_animation"
+			}
+
+			
 		}
 	
 		"OnProjectileHitUnit"
@@ -771,57 +779,6 @@
 
 		"Modifiers"
 		{
-			"modifier_casting_passive_datadriven"
-			{
-				"Passive"		"1"
-				"IsBuff"		"1"
-				"IsHidden"		"1"
-				"IsPurgable"		"0"
-
-				// INTERRUPT SYSTEM
-				"OnAttackStart"
-				{
-					"ApplyModifier"
-					{
-						"ModifierName"		"modifier_casting_datadriven"
-						"Target"			"CASTER"
-					}
-				}
-
-				"OnAttack"
-				{
-					"RemoveModifier"
-					{
-						"ModifierName"		"modifier_casting_datadriven"
-						"Target"			"CASTER"
-					}
-				}
-				// INTERRUPT SYSTEM
-			}
-
-			"modifier_casting_datadriven"
-			{
-			    // INTERRUPT SYSTEM
-
-			    "IsBuff"    "1"
-			    "IsHidden"  "1"
-			    "IsPurgable"		"1"
-
-			    //"EffectName"        "particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_borealis.vpcf"
-			   // "EffectAttachType"  "attach_origin"
-
-				"ThinkInterval"		"0.03"
-
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"		"heroes/globaled_hero_crystal_maiden/rightclickinterruptcheck.lua"
-						"Function"			"couldBeAttacking"
-					}
-				}
-			}
-
 			"modifier_enable_ignore_cast_angle_passive_datadriven"
 			{	
 				"Passive"		"1"
@@ -1024,10 +981,6 @@
 	}
 
 
-	//***************************************************************************************************************************************************************************************************************
-	//			Globaled Arena: Passive Buff
-	//			Edited for use in Globaled Arena by Stephen Hercia, all credit to original author (3/24/2015)
-	//***************************************************************************************************************************************************************************************************************
 	"sma_pb"
 	{
 		// General
@@ -1419,6 +1372,7 @@
 		{
 			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
 			"particle"			"particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_end.vpcf"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_riki.vsndevts"
 		}
 		
 		// Casting
@@ -1486,14 +1440,14 @@
 	
 			"FireSound"
 			{
-				"EffectName"		"Hero_PhantomAssassin.Strike.Start"
-				"Target"			"CASTER"
+				"EffectName"		"Hero_Riki.Blink_Strike"
+				"Target"			"TARGET"
 			}
-	
-			"FireSound"
+
+			"RunScript"
 			{
-				"EffectName"		"Hero_PhantomAssassin.Strike.End"
-				"Target"			"CASTER"
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
 			}
 		}
 	
@@ -1671,97 +1625,13 @@
 
 
 
-	"ch_absorb"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"FightRecapLevel"				"1"
-		"AbilityTextureName"			"chen_holy_persuasion"
-		"MaxLevel"						"1"
-	
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"0.125"
-		"AnimationPlaybackRate" 		"1"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"300"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
-	
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"12.0"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage_reduction_percent"				"-60"
-			}
-		}
-	
-		"precache"
-		{	
-			"particle"		"particles/econ/items/luna/luna_lucent_ti5/luna_eclipse_cast_moonlight_glow04_ti_5.vpcf"
-		}
-	
-		"OnSpellStart"
-		{		
-			"ApplyModifier"
-			{
-				"ModifierName"		"modifier_storm_spirit_damage_reduction_buff_datadriven"
-				"Target"			"TARGET"
-			}
-
-			"FireEffect"
-			{
-				"EffectName"			"particles/econ/items/luna/luna_lucent_ti5/luna_eclipse_cast_moonlight_glow04_ti_5.vpcf"
-				"EffectATtachType"		"follow_origin"
-				"Target"				"TARGET"
-			}
-		}
-	
-		"Modifiers"
-		{
-			"modifier_storm_spirit_damage_reduction_buff_datadriven"
-			{
-				"IsBuff"		"1"
-				"IsPurgable"	"1"
-				"Duration"		"%duration"
-
-				//"EffectName"		"particles/units/heroes/hero_medusa/medusa_mana_shield_shell_add.vpcf"
-				//"EffectAttachType"		"attach_origin"
-
-				"properties"
-				{
-					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"		"%damage_reduction_percent"
-				}
-			}
-		}
-	}
 
 	"ch_h"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
@@ -1772,7 +1642,8 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"1.5"
+		"AbilityCastPoint"				"0"
+		"AbilityChannelTime"				"1.5"
 
 		// Animation
 		//-------------------------------------------------------------------------------------------------------------
@@ -1843,7 +1714,7 @@
 			}
 		}
 	
-		"OnSpellStart"
+		"OnChannelSucceeded"
 		{
 			"Random"
 			{
@@ -1897,6 +1768,15 @@
 				"Target"			"TARGET"
 				"EffectName"		"particles/units/heroes/hero_omniknight/omniknight_purification_cast.vpcf"
 				"EffectAttachType"	"follow_origin"
+			}
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+			    "Function"      "general_channel_refund"
 			}
 		}
 	}
@@ -4474,7 +4354,7 @@
 		"BaseClass"						"ability_datadriven"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
@@ -4489,7 +4369,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"0.6"
+		"AbilityCastPoint"				"0"
 
 		// Animation
 		//-------------------------------------------------------------------------------------------------------------
@@ -4517,11 +4397,6 @@
 				"var_type"				"FIELD_FLOAT"
 				"buff_duration"				"16"
 			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"damage_reduction_percent"				"-5"
-			}
 		}
 	
 		"precache"
@@ -4530,50 +4405,8 @@
 			"soundfile"		"soundevents/game_sounds_greevils.vsndevts"
 		}
 
-
-// INTERRUPT SYSTEM
-"OnAbilityPhaseStart"
-{
-	"ApplyModifier"
-	{
-		"ModifierName"		"modifier_casting_datadriven"
-		"Target"			"CASTER"
-	}
-}
-
-"OnAbilityPhaseInterrupted"
-{
-	"RemoveModifier"
-	{
-		"ModifierName"		"modifier_casting_datadriven"
-		"Target"			"CASTER"
-	}
-}
-
-"OnSpellStart"
-{
-    "RemoveModifier"
-    {
-        "ModifierName"      "modifier_casting_datadriven"
-        "Target"            "CASTER"
-    }
-}
-// INTERRUPT SYSTEM
-
-
 		"Modifiers"
 		{
-
-			 // INTERRUPT SYSTEM
-			"modifier_casting_datadriven"
-			{
-			    "IsBuff"    "1"
-			    "IsHidden"  "1"
-
-			    //"EffectName"        "particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_borealis.vpcf"
-			    //"EffectAttachType"  "attach_origin"
-			}
-			// INTERRUPT SYSTEM
 
 			"modifier_heal_three_hot_datadriven"
 			{
@@ -4589,7 +4422,6 @@
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%bonus_health_regen"
-					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"		"%damage_reduction_percent"
 				}
 			}
 		}
@@ -4608,6 +4440,12 @@
 			{
 				"EffectName"	"Hero_Treant.LeechSeed.Cast"
 				"Target"		"TARGET"
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "enchantress_instant_cast_animation"
 			}
 		}
 	}
@@ -4631,7 +4469,7 @@
 
 
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
@@ -4702,17 +4540,11 @@
 		{
 	    	"RunScript"
 	    	{
-	    		"ScriptFile"		"heroes/dispel.lua"
-	    		"Function"			"dispel_magic"
+	    		"ScriptFile"		"heroes/dispels/dispelMagic.lua"
+	    		"Function"			"dispelFriendly"
 	    	}
 
 
-
-	    //	"RunScript"
-	    //	{
-	    //		"ScriptFile"		"heroes/dispels/dispelMagic.lua"
-	    //		"Function"			"dispelFriendly"
-	    //	}
 
 			"FireEffect"
 			{
@@ -4725,7 +4557,13 @@
 			{
 				"EffectName"		"Brewmaster_Storm.DispelMagic"
 				"Target"			"TARGET"
-			}	    	
+			}	
+
+			"RunScript"
+	    	{
+	    	    "ScriptFile"    "heroes/animations.lua"
+	    	    "Function"      "storm_spirit_instant_cast_animation"
+	    	}    	
 		}
 
 		"OnOwnerSpawned"
@@ -4785,7 +4623,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -4798,8 +4636,9 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"%tooltip_range"
-		"AbilityCastPoint"				"1.5"
+		"AbilityCastPoint"				"0"
 		"AnimationPlaybackRate" 		"0.75"
+		"AbilityChannelTime"			"2.0"
 
 		
 		// Time		
@@ -4837,7 +4676,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 
 		
-		"OnSpellStart"
+		"OnChannelSucceeded"
 		{
 			"RunScript"
 			{
@@ -4858,47 +4697,18 @@
 			}
 		}
 		
-// INTERRUPT SYSTEM
-"OnAbilityPhaseStart"
-{
-	"ApplyModifier"
-	{
-		"ModifierName"		"modifier_casting_datadriven"
-		"Target"			"CASTER"
-	}
-}
+		"OnChannelInterrupted"
+		{
 
-"OnAbilityPhaseInterrupted"
-{
-	"RemoveModifier"
-	{
-		"ModifierName"		"modifier_casting_datadriven"
-		"Target"			"CASTER"
-	}
-}
-
-"OnSpellStart"
-{
-    "RemoveModifier"
-    {
-        "ModifierName"      "modifier_casting_datadriven"
-        "Target"            "CASTER"
-    }
-}
-// INTERRUPT SYSTEM
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+			    "Function"      "general_channel_refund"
+			}
+		}
 
 		"Modifiers"
 		{
-// INTERRUPT SYSTEM
-"modifier_casting_datadriven"
-{
-    "IsBuff"    "1"
-    "IsHidden"  "1"
-
-    //"EffectName"        "particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_borealis.vpcf"
-    //"EffectAttachType"  "attach_origin"
-}
-// INTERRUPT SYSTEM
 
 
 			"modifier_treant_root_datadriven"
@@ -5063,7 +4873,7 @@
 
 
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
@@ -5287,7 +5097,7 @@
     //-------------------------------------------------------------------------------------
     "BaseClass"							"ability_datadriven"
 	"AbilityTextureName"				"drow_ranger_frost_arrows"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_YES"
@@ -5297,10 +5107,10 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1325"
-    "AbilityCastPoint"					"0.235"
+    "AbilityCastPoint"					"0"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AnimationPlaybackRate"				"1.5"
-    "AbilityCooldown"					"1"
+    "AbilityCooldown"					"6"
     "AbilityManaCost"					"100"
     "AbilityDuration"					"6"
 
@@ -5322,7 +5132,7 @@
 		"03"
 		{
 			"var_type"					"FIELD_FLOAT"
-			"duration"					"6"
+			"duration"					"10"
 		}
 		"04"
 		{
@@ -5339,37 +5149,6 @@
 			"var_type"					"FIELD_FLOAT"
 			"crit_damage"					"1.25"
 		}
-		"07"
-		{
-			"var_type"					"FIELD_FLOAT"
-			"shot_bonus_damage"			"25"
-		}
-		"08"
-		{
-			"var_type"					"FIELD_FLOAT"
-			"bonus_attack_speed_buff"		"15"
-		}
-		"09"
-		{
-			"var_type"					"FIELD_FLOAT"
-			"crit_damage"					"1.25"
-		}
-		"10"
-		{
-			"var_type"					"FIELD_FLOAT"
-			"buff_duration"					"6"
-		}
-		"11"
-		{
-			"var_type"					"FIELD_FLOAT"
-			"shot_buff_duration"			"0.6"
-		}	
-
-		"12"
-		{
-			"var_type"					"FIELD_FLOAT"
-			"shot_movement_speed_pct"			"45"
-		}	
     }
 
     // Data Driven
@@ -5380,9 +5159,7 @@
     	"particles"		"particles/generic_gameplay/generic_slowed_cold.vpcf"
     	"particles"		"particles/units/heroes/hero_drow/drow_base_attack.vpcf"
 		"soundfile"		"sounds/weapons/hero/drow_ranger/arrow_impact_1.vsnd"
-		"particles"		"particles/units/heroes/hero_keeper_of_the_light/keeper_illuminate_impact03.vpcf"
 		"particle"		"particles/units/heroes/hero_drow/drow_dust_hit.vpcf"
-		"particle"		"particles/items2_fx/phase_boots.vpcf"
     }
 
 
@@ -5407,12 +5184,11 @@
 			"Target"		"CASTER"
 		}
 
- 		"ApplyModifier"
+		"RunScript"
 		{
-            "Target"        "CASTER"
-            "ModifierName"  "modifier_slow_shot_bonus_effects_buff_datadriven"
-		}       
-
+		    "ScriptFile"    "heroes/animations.lua"
+		    "Function"      "drow_instant_cast_animation"
+		}
     }
 
     "OnProjectileHitUnit"
@@ -5474,11 +5250,6 @@
             }
         }
 
-        "ApplyModifier"
-        {
-            "Target"        "CASTER"
-            "ModifierName"  "modifier_external_slow_shot_bonus_damage_drow_ranger_buff_physical_undispellable_datadriven"
-        }
 
     }
 
@@ -5501,45 +5272,6 @@
             {
                     "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"  "%slow_pct"
             }
-        }
-
-        "modifier_external_slow_shot_bonus_damage_drow_ranger_buff_physical_undispellable_datadriven"
-        {
-        	"IsBuff"		"1"
-        	"IsPurgable"	"1"
-        	"IsHidden"		"0"
-        	"Duration"		"%shot_buff_duration"
-
-			"EffectName"				"particles/items2_fx/phase_boots.vpcf"
-			"EffectAttachType"			"follow_origin"
-
-
-        	"Properties"
-        	{
-				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" 		"%shot_movement_speed_pct"         		
-        	}
-        }
-
-        "modifier_slow_shot_bonus_effects_buff_datadriven"
-        {
-        	"IsBuff"		"1"
-        	"IsPurgable"	"1"
-
-        	"OnAttack"
-        	{
-        		"RemoveModifier"
-        		{
-        			"ModifierName"		"modifier_slow_shot_bonus_effects_buff_datadriven"
-        			"Target"			"CASTER"
-        		}
-        	}
-
-
-        	"Properties"
-        	{
-        		"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"			"%shot_bonus_damage"
-				"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%bonus_attack_speed_buff"
-        	}        	
         }
 
     }
@@ -5650,6 +5382,15 @@
 			}
 		}
 	
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
+			}
+
+		}
 
 		"OnChannelSucceeded"
 		{
@@ -5667,6 +5408,23 @@
 				"Target"			"CASTER"
 			}
 		}
+
+
+	    "OnChannelInterrupted"
+	    {
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+			    "Function"      "general_channel_refund"
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "gcd_cancel"
+			}
+	    }
+
 
 		"OnOwnerSpawned"
 		{
@@ -5891,7 +5649,7 @@
     //-------------------------------------------------------------------------------------
     "BaseClass"							"ability_datadriven"
 	"AbilityTextureName"				"night_stalker_void"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
@@ -5901,7 +5659,8 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1200"
-    "AbilityCastPoint"					"1.25"
+    "AbilityCastPoint"					"0"
+    "AbilityChannelTime"				"1.25"
     "AnimationPlaybackRate"				"1"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AbilityManaCost"					"250"
@@ -5962,9 +5721,16 @@
 
 
 
+    "OnAbilityPhaseStart"
+    {
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/globalcooldown.lua"
+		    "Function"      "activate_gcd_without_ability_specific"
+		}
+    }
 
-
-    "OnSpellStart"
+    "OnChannelSucceeded"
     {
 		"TrackingProjectile"
         {
@@ -5981,6 +5747,21 @@
 	    	"EffectName"		"Hero_Necrolyte.Attack"
 	    	"Target"			"CASTER"
 	    }
+    }
+
+    "OnChannelInterrupted"
+    {
+    	"RunScript"
+    	{
+    	    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+    	    "Function"      "general_channel_refund"
+    	}
+
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/globalcooldown.lua"
+		    "Function"      "gcd_cancel"
+		}
     }
 
     "OnProjectileHitUnit"
@@ -6062,7 +5843,7 @@
     //-------------------------------------------------------------------------------------
     "BaseClass"							"ability_datadriven"
 	"AbilityTextureName"				"abaddon_death_coil"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
@@ -6072,7 +5853,7 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1200"
-    "AbilityCastPoint"					"1.25"
+    "AbilityChannelTime"					"1.25"
     "AnimationPlaybackRate"				"1"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AbilityManaCost"					"400"
@@ -6117,6 +5898,11 @@
 			"var_type"					"FIELD_INTEGER"
 			"bonus_damage"					"5"
 		}
+		"08"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"channel_succeed_cooldown"					"6"
+		}
     }
 
     // Data Driven
@@ -6129,7 +5915,16 @@
     	"Particles"		"particles/units/heroes/hero_skeletonking/wraith_king_ghosts_ambient.vpcf"
     }
 
-    "OnSpellStart"
+    "OnAbilityPhaseStart"
+    {
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/globalcooldown.lua"
+		    "Function"      "activate_gcd_without_ability_specific"
+		}
+    }
+
+    "OnChannelSucceeded"
     {
 		"RunScript"
 		{
@@ -6147,7 +5942,29 @@
             "MoveSpeed"         "%projectile_speed"
 	        "SourceAttachment"  "DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
 	    }
+
+	    "RunScript"
+	    {
+	        "ScriptFile"    "heroes/spellcd.lua"
+	        "Function"      "apply_cd"
+	    }
     }
+
+    "OnChannelInterrupted"
+    {
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+		    "Function"      "general_channel_refund"
+		}
+
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/globalcooldown.lua"
+		    "Function"      "gcd_cancel"
+		}
+    }
+
 
     "OnProjectileHitUnit"
     {
@@ -6307,6 +6124,11 @@
 			}
 
 
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
+			}
 
 			"SpawnUnit"
 			{
@@ -6421,6 +6243,12 @@
 		{
 			"EffectName"	"Hero_ShadowDemon.ShadowPoison"
 			"Target"		"TARGET"
+		}
+
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/globalcooldown.lua"
+		    "Function"      "activate_gcd_without_ability_specific"
 		}
     }
 
@@ -6596,7 +6424,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 
@@ -6609,7 +6437,7 @@
 	
 	    // Casting
 	    //-------------------------------------------------------------------------------------------------------------
-	    "AbilityCastPoint"              "0.2"
+	    "AbilityCastPoint"              "0.0"
 	    "AbilityCastRange"              "1100"
 	    "AOERadius"						"1100"
 	    
@@ -6741,7 +6569,14 @@
 			{
 				"EffectName"		"Brewmaster_Storm.DispelMagic"
 				"Target"			"TARGET"
-			}	    	
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "omni_instant_cast_animation"
+			}
+	    	
 		}
 
 
@@ -7297,7 +7132,7 @@
     //-------------------------------------------------------------------------------------
     "BaseClass"							"ability_datadriven"
 	"AbilityTextureName"				"sven_storm_bolt"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_YES"
@@ -7307,7 +7142,7 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"%tooltip_range"
-    "AbilityCastPoint"					"0.325"
+    "AbilityCastPoint"					"0"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AnimationPlaybackRate"				"1.25"
     "AbilityCooldown"					"40"
@@ -7365,6 +7200,12 @@
             "ProvidesVision"    "0"
             "MoveSpeed"         "%projectile_speed"
 	        "SourceAttachment"  "DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+	    }
+
+	    "RunScript"
+	    {
+	        "ScriptFile"    "heroes/animations.lua"
+	        "Function"      "omni_instant_cast_animation"
 	    }
     }
 
@@ -7534,7 +7375,7 @@
     //-------------------------------------------------------------------------------------
     "BaseClass"							"ability_datadriven"
 	"AbilityTextureName"				"chen_penitence"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ALLIES_YES"
@@ -7543,10 +7384,10 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1200"
-    "AbilityCastPoint"					"0.735"
-    //"AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
-    "AnimationPlaybackRate"				"0.65"
-    "AbilityCooldown"					"1.5"
+    "AbilityChannelTime"					"2.0"
+    "AbilityCastAnimation" 				"ACT_DOTA_TELEPORT"
+    "AnimationPlayBackRate"				"0.225"
+    "AbilityCooldown"					"0"
     "AbilityManaCost"					"500"
     "AbilityDuration"					"%duration"
 
@@ -7605,7 +7446,7 @@
 
 
 
-    "OnSpellStart"
+    "OnChannelSUcceeded"
     {
 		"ApplyModifier"
 		{
@@ -7656,7 +7497,14 @@
 		}
     }
 
-
+    "OnChannelInterrupted"
+    {
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+		    "Function"      "general_channel_refund"
+		}
+    }
 
     "OnAbilityPhaseStart"
     {
@@ -10176,9 +10024,8 @@
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"1.5"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"%duration"
-	    "AbilitySharedCooldown"			"bhdps"
 	
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -10213,6 +10060,12 @@
 				"ScriptFile"	"heroes/globaled_hero_bounty_hunter/BHHasteStrikesPoisonDamage.lua"
 				"Function"		"comboPointSpendAllHasteStrikes"
 				"modifier_stack"	"modifier_bh_combo_points_datadriven"
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
 			}
 		}
 	
@@ -10685,6 +10538,7 @@
 		{
 			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
 			"particle"			"particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_end.vpcf"
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_riki.vsndevts"
 		}
 		
 		// Casting
@@ -10751,15 +10605,17 @@
 	
 			"FireSound"
 			{
-				"EffectName"		"Hero_PhantomAssassin.Strike.Start"
-				"Target"			"CASTER"
+				"EffectName"		"Hero_Riki.Blink_Strike"
+				"Target"			"TARGET"
 			}
-			"FireSound"
+
+			"RunScript"
 			{
-				"EffectName"		"Hero_PhantomAssassin.Strike.End"
-				"Target"			"CASTER"
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
 			}
 		}
+
 	
 		"Modifiers"
 		{
@@ -11665,6 +11521,12 @@
 				"ScriptFile"		"heroes/diminishing_returns/controlled_stun.lua"
 				"Function"			"paControlledStunCheck"
 			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
+			}
 		}
 	
 		"Modifiers"
@@ -11778,7 +11640,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType"				"SPELL_IMMUNITY_FRIENDLY_YES"
@@ -11794,12 +11656,12 @@
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				""
-		"AbilityCastPoint"				""
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0"
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				""
+		"AbilityCooldown"				"0"
 	
 		// Duration
 		//-------------------------------------------------------------------------------------------------------------
@@ -12075,6 +11937,12 @@
 				"Target" 			"CASTER"
 				"ModifierName"		"modifier_pa_meld_buff_datadriven"
 			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
+			}
 		}
 	
 		"Modifiers"
@@ -12315,7 +12183,7 @@
 		"BaseClass"						"ability_datadriven"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
@@ -12335,7 +12203,6 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"1"
-		"AbilitySharedCooldown"			"treant_hot"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -12404,8 +12271,6 @@
 			}
 
 
-
-
 	        "FireSound"
 	        {
 	        	"EffectName" "Hero_Enchantress.NaturesAttendantsCast"
@@ -12433,6 +12298,12 @@
 						"Function"		"nutureHealTickCritical"
 					}
 				}
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "enchantress_instant_cast_animation"
 			}
 
 		}
@@ -12535,7 +12406,7 @@
 		"BaseClass"						"ability_datadriven"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
@@ -12543,14 +12414,13 @@
 		"AbilityTextureName"			"witch_doctor_voodoo_restoration"
 		"MaxLevel"						"1"
 
-		"AbilitySharedCooldown"			"treant_hot"
 
 	
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"1.5"
-
+		"AbilityCastPoint"				"0"
+		"AbilityChannelTime"			"2.35"
 		// Animation
 		//-------------------------------------------------------------------------------------------------------------
 		"AnimationPlaybackRate" 		"0.35"
@@ -12610,7 +12480,7 @@
 
 		}
 
-		"OnSpellStart"
+		"OnChannelSucceeded"
 		{
 			"RunScript"
 			{
@@ -12658,35 +12528,14 @@
 			}
 		}
 
-// INTERRUPT SYSTEM
-"OnAbilityPhaseStart"
-{
-	"ApplyModifier"
-	{
-		"ModifierName"		"modifier_casting_datadriven"
-		"Target"			"CASTER"
-	}
-}
-
-"OnAbilityPhaseInterrupted"
-{
-	"RemoveModifier"
-	{
-		"ModifierName"		"modifier_casting_datadriven"
-		"Target"			"CASTER"
-	}
-}
-
-"OnSpellStart"
-{
-    "RemoveModifier"
-    {
-        "ModifierName"      "modifier_casting_datadriven"
-        "Target"            "CASTER"
-    }
-}
-// INTERRUPT SYSTEM
-
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+			    "Function"      "general_channel_refund"
+			}
+		}
 
 		"Modifiers"
 		{
@@ -13055,12 +12904,6 @@
 		{
 			"RunScript"
 			{
-			    "ScriptFile"    "heroes/globalcooldown.lua"
-			    "Function"      "activate_gcd_without_ability_specific"
-			}
-
-			"RunScript"
-			{
 			    "ScriptFile"    "heroes/animations.lua"
 			    "Function"      "necro_instant_cast_animation"
 			}
@@ -13073,6 +12916,12 @@
 	            "ProvidesVision"    "0"
 	            "MoveSpeed"         "%projectile_speed"
 		        "SourceAttachment"  "DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+		    }
+
+		    "RunScript"
+		    {
+		        "ScriptFile"    "heroes/globalcooldown.lua"
+		        "Function"      "activate_gcd_without_ability_specific"
 		    }
 		}
 
@@ -14429,7 +14278,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -14452,11 +14301,11 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"0.725"
+		"AbilityCastPoint"				"0"
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"1.5"
 		"AbilityCastAnimation" 			"ACT_DOTA_ATTACK"
 		"AnimationPlaybackRate"			"1.0"
 	
@@ -15005,7 +14854,7 @@
     //-------------------------------------------------------------------------------------
     "BaseClass"							"ability_datadriven"
 	"AbilityTextureName"				"medusa_mystic_snake"
-    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
     "AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
@@ -15015,7 +14864,7 @@
     // Stats
     //-------------------------------------------------------------------------------------
     "AbilityCastRange"					"1325"
-    "AbilityCastPoint"					"0.235"
+    "AbilityCastPoint"					"0"
     "AbilityCastAnimation" 				"ACT_DOTA_ATTACK"
     "AnimationPlaybackRate"				"1.5"
     "AbilityCooldown"					"1"
@@ -15092,6 +14941,12 @@
 		{
 			"EffectName"	"Hero_Medusa.MysticSnake.Cast"
 			"Target" 		"CASTER"
+		}
+
+		"RunScript"
+		{
+		    "ScriptFile"    "heroes/animations.lua"
+		    "Function"      "drow_instant_cast_animation"
 		}
 
     }
@@ -15418,7 +15273,7 @@
 		"BaseClass"						"ability_datadriven"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
@@ -15431,7 +15286,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
-		"AbilityCastPoint"				"0.00000"
+		"AbilityCastPoint"				"0.0"
 
 		// Animation
 		//-------------------------------------------------------------------------------------------------------------
@@ -15503,6 +15358,12 @@
 
 			//	"modifierName"		"modifier_storm_spirit_absorb_effect_magical_buff_dispellable_datadriven"
 			//	"modifierNameBlock"		"modifier_storm_spirit_triage_datadriven"
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "storm_spirit_instant_cast_animation"
 			}
 		}
 
@@ -15694,7 +15555,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
@@ -15765,6 +15626,12 @@
 				"VisionRadius"			"0"
 				"MoveSpeed"				"%projectile_speed"
 				"SourceAttachment"		"DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "storm_spirit_instant_cast_animation"
 			}
 		}
 	
@@ -17592,6 +17459,12 @@
 				"ScriptFile"		"heroes/diminishing_returns/controlled_stun.lua"
 				"Function"			"bhControlledStunCheck"
 			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/globalcooldown.lua"
+			    "Function"      "activate_gcd_without_ability_specific"
+			}
 		}
 	
 		"Modifiers"
@@ -17718,7 +17591,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -17730,8 +17603,7 @@
 		"AbilityManaCost"					"125"
 		"AoeRadius"							"%blaze_radius"
 		"AbilityCooldown"					"30"
-		"AbilityCastPoint"					"0.325"
-		"AbilityCastAnimation"				"ACT_DOTA_CAST2_STATUE"
+		"AbilityCastPoint"					"0"
 
 
 		// Special
@@ -17977,7 +17849,11 @@
 				"Function"		"globalCooldown"
 			}
 
-
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "lina_instant_cast_blaze_animation"
+			}
 
 		}	
 
@@ -18212,7 +18088,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -18237,7 +18113,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"525"
-		"AbilityCastPoint"				"0.25"
+		"AbilityCastPoint"				"0"
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -18352,10 +18228,12 @@
 				"Target"		"CASTER"
 			}
 
+
+	
 			"RunScript"
 			{
-				"ScriptFile"	"heroes/globalcooldown.lua"
-				"Function"		"globalCooldown"
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "lina_instant_cast_animation"
 			}
 		}
 
@@ -18522,7 +18400,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -18542,7 +18420,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1325"
-		"AbilityCastPoint"				"0.0"
+		"AbilityCastPoint"				"0"
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -18630,6 +18508,11 @@
 				"Target" 		"TARGET"
 			}
 
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "lina_instant_cast_animation"
+			}
 
 		}
 
@@ -18735,7 +18618,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -18758,7 +18641,8 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1325"
-		"AbilityCastPoint"				"3.25"
+		"AbilityChannelTime"				"3.25"
+		"AbilityCastPoint"				"0"
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -18796,7 +18680,7 @@
 
 		}
 	
-		"OnSpellStart"
+		"OnChannelSucceeded"
 		{
 			"TrackingProjectile"
 			{
@@ -18808,6 +18692,15 @@
 				"SourceAttachment"	"DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
 			}
 
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+			    "Function"      "general_channel_refund"
+			}
 		}
 
 		"OnProjectileHitUnit"
@@ -19890,15 +19783,21 @@
 
 		}
 
+		"Precache"
+		{
+		    "particle"        "particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_borealis.vpcf"
+		}
+
 		"Modifiers"
 		{
+
 		    "modifier_gcd_activated_datadriven"
 		    {
 		        "Passive"           "0"
 		        "IsHidden"          "0"
 		        "IsDebuff"          "0"
 				"IsPurgable"		"1"
-				"Duration"		"%global_cooldown"
+				"Duration"		"0.03"
 		
 		        "OnCreated"
 		        {
@@ -19911,11 +19810,280 @@
 		        }
 		    }
 
+		    "modifier_gcd_check_if_casting_modifier_datadriven"
+		    {
+		        "Passive"           "1"
+		        "IsHidden"          "1"
+		        "IsDebuff"          "0"
+				"IsPurgable"		"1"
 
-		    
+				"ThinkInterval"		"0.03"
+
+
+				"OnIntervalThink"
+				{
+                	"RunScript"
+                	{
+                	    "ScriptFile"    "heroes/globalcooldown.lua"
+                	    "Function"      "gcd_check_if_casting"
+                	}
+
+				}
+		    }
+
+		    "modifier_check_if_channeling_datadriven"
+		    {
+		    	"Passive"		"1"
+		    	"IsHidden"		"1"
+		    	"IsBuff"		"1"
+
+		    	"ThinkInterval"		"0.03"
+
+		    	"OnIntervalThink"
+		    	{
+		    		"RunScript"
+		    		{
+		    		    "ScriptFile"    "heroes/channelling_interrupt_system.lua"
+		    		    "Function"      "channeling_check"
+		    		}
+		    	}
+		    }
+
+			"modifier_currently_channeling_datadriven"
+			{
+
+			    "IsBuff"    "1"
+			    "IsPurgable"	"1"
+			    "IsHidden"  "0"
+
+			    "EffectName"        "particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_borealis.vpcf"
+			    "EffectAttachType"  "attach_origin"
+			}
+
 		}
 	}
 
+
+
+
+
+
+	"cm_quick_slow"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NP"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityTextureName"			"morphling_waveform"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityChannelTime"			"1.0"
+	
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1100"
+		"AbilityCooldown"				"0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"45"
+	
+		"MaxLevel"		"1"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"5"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"projectile_speed"		"1200"
+			}
+		}
+
+		"OnChannelSucceeded"
+		{
+			"TrackingProjectile"
+			{
+			    "Target"            "TARGET"
+			    "EffectName"        "particles/units/heroes/hero_morphling/morphling_base_attack.vpcf"
+			    "Dodgeable"         "1"
+			    "ProvidesVision"    "0"
+			    "VisionRadius"      ""
+			    "MoveSpeed"         "%projectile_speed"
+			    "SourceAttachment"  "DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+			}
+
+			"FireSound"
+			{
+			    "EffectName"    "hero_Crystal.attack"
+			    "Target"        "CASTER"
+			}
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/refund_channel_interrupted.lua"
+			    "Function"      "general_channel_refund"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+		    "DeleteOnHit"    "1"
+
+		    "FireSound"
+		    {
+		        "EffectName"    "hero_Crystal.projectileImpact"
+		        "Target"        "TARGET"
+		    }
+
+			"RunScript"
+			{
+				"ScriptFile"		"heroes/dispels/slowApplication.lua"
+				"Function"			"removeSlowsAll"
+			}
+
+		    "RunScript"
+		    {
+		        "ScriptFile"    "heroes/globaled_hero_crystal_maiden/quick_slow.lua"
+		        "Function"      "quick_slow_application"
+		    }
+		}
+
+	}
+
+
+
+
+
+
+
+	"ch_absorb"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"chen_holy_persuasion"
+		"MaxLevel"						"1"
+	
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0"
+		"AnimationPlaybackRate" 		"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"300"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+	
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"16.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_reduction_percent"				"-60"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"effect_think_interval"				"2"
+			}
+		}
+	
+		"precache"
+		{	
+			"particle"		"particles/econ/items/luna/luna_lucent_ti5/luna_eclipse_cast_moonlight_glow04_ti_5.vpcf"
+		}
+	
+		"OnSpellStart"
+		{		
+			"ApplyModifier"
+			{
+				"ModifierName"		"modifier_storm_spirit_damage_reduction_buff_datadriven"
+				"Target"			"TARGET"
+			}
+
+			"RunScript"
+			{
+			    "ScriptFile"    "heroes/animations.lua"
+			    "Function"      "storm_spirit_instant_cast_animation"
+			}
+		}
+	
+		"Modifiers"
+		{
+			"modifier_storm_spirit_damage_reduction_buff_datadriven"
+			{
+				"IsBuff"		"1"
+				"IsPurgable"	"1"
+				"Duration"		"%duration"
+
+				"ThinkInterval"		"%effect_think_interval"
+
+				"OnIntervalThink"
+				{
+					"FireEffect"
+					{
+						"EffectName"			"particles/econ/items/luna/luna_lucent_ti5/luna_eclipse_cast_moonlight_glow04_ti_5.vpcf"
+						"EffectATtachType"		"follow_origin"
+						"Target"				"TARGET"
+					}
+				}
+
+				"OnCreated"
+				{
+					"FireEffect"
+					{
+						"EffectName"			"particles/econ/items/luna/luna_lucent_ti5/luna_eclipse_cast_moonlight_glow04_ti_5.vpcf"
+						"EffectATtachType"		"follow_origin"
+						"Target"				"TARGET"
+					}
+				}
+
+				"properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"		"%damage_reduction_percent"
+				}
+			}
+		}
+	}
 
 
 
